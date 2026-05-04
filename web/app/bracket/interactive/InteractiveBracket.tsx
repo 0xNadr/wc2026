@@ -17,9 +17,6 @@ type R32Init = {
 type Pick = "a" | "b";
 type Picks = Record<string, Pick>; // key = `${stage}-${idx}`
 
-type NextStageProbs = Partial<
-  Record<"R16" | "QF" | "SF" | "Final", Record<string, number>>
->;
 
 const STAGES = ["R32", "R16", "QF", "SF", "Final"] as const;
 const STAGE_LABEL: Record<(typeof STAGES)[number], string> = {
@@ -45,11 +42,11 @@ function lookupCell(
 export function InteractiveBracket({
   initialR32,
   matchupsData,
-  nextStageProbs,
+  championProbs,
 }: {
   initialR32: R32Init[];
   matchupsData: Record<string, MatchupCell>;
-  nextStageProbs: NextStageProbs;
+  championProbs: Record<string, number>;
 }) {
   const [picks, setPicks] = useState<Picks>(() => {
     // Pre-fill R32 with the server-computed default (next-stage survival).
@@ -60,14 +57,11 @@ export function InteractiveBracket({
     return p;
   });
 
-  // For each stage, the default pick is whoever has higher probability of
-  // advancing to the NEXT stage in the simulator. This makes the initial
-  // bracket end with the model's actual most-likely champion (Brazil at
-  // 16.1%) rather than the head-to-head favorite of every pairing.
-  function defaultPickForStage(stage: keyof typeof STAGE_LABEL, a: string, b: string): Pick {
-    const probs = nextStageProbs[stage];
-    if (!probs) return "a";
-    return (probs[a] ?? 0) >= (probs[b] ?? 0) ? "a" : "b";
+  // For every match, the default pick is whoever has the higher champion
+  // probability across the full simulation. This makes the initial bracket
+  // end with the model's actual most-likely champion in every round.
+  function defaultPickForStage(_stage: keyof typeof STAGE_LABEL, a: string, b: string): Pick {
+    return (championProbs[a] ?? 0) >= (championProbs[b] ?? 0) ? "a" : "b";
   }
 
   // Compute matches per stage with cascading teams
@@ -98,7 +92,7 @@ export function InteractiveBracket({
       result[cur] = matches;
     }
     return result;
-  }, [picks, initialR32, matchupsData, nextStageProbs]);
+  }, [picks, initialR32, matchupsData, championProbs]);
 
   function setPick(stage: string, idx: number, p: Pick) {
     const key = `${stage}-${idx}`;

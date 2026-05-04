@@ -34,19 +34,13 @@ export type BracketMatch = {
   cell: MatchupCell;
 };
 
-// At each stage, the winner of a match is the team with the higher
-// probability of advancing to the NEXT stage in the full Monte Carlo. This
-// makes the modal bracket end with the actual most-likely champion (e.g.
-// Brazil at 16.1%) rather than the head-to-head favorite of every individual
-// pairing. The pairwise win-probability shown for each match still reflects
-// the model's matchup assessment.
-const NEXT_STAGE_KEY: Record<BracketMatch["stage"], keyof Results["probabilities"]> = {
-  R32: "round_of_16",
-  R16: "quarterfinal",
-  QF: "semifinal",
-  SF: "final",
-  Final: "champion",
-};
+// At every match, the winner is the team with higher CHAMPION probability
+// across the full simulation. This makes the modal bracket trace the path of
+// the most-likely champion (e.g. Spain at 14.7%) — the highest-rated team
+// always advances when they're playing, and matches without that team go to
+// whoever has the higher champion % among the two. The pairwise
+// win-probability shown for each match still reflects the model's matchup
+// assessment, distinct from the chosen winner.
 
 function topTeamForRank(group: string[], probs: Record<string, number>): string {
   return group.reduce((best, t) => (probs[t] > probs[best] ? t : best), group[0]);
@@ -142,17 +136,15 @@ export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
   const matches: BracketMatch[] = [];
   const stages: BracketMatch["stage"][] = ["R32", "R16", "QF", "SF", "Final"];
 
+  const championProbs = r.probabilities.champion;
   for (const stage of stages) {
     const winners: string[] = [];
-    const stageProbs = r.probabilities[NEXT_STAGE_KEY[stage]];
     for (const [a, b] of teams) {
       const cell = lookupCell(mu, a, b);
-      // Pick the winner by their probability of advancing to the next stage in
-      // the full simulation, not by head-to-head pairwise alone. This makes
-      // the modal bracket land on the actual most-likely champion.
-      const probA_next = stageProbs[a] ?? 0;
-      const probB_next = stageProbs[b] ?? 0;
-      const winner = probA_next >= probB_next ? a : b;
+      // Pick the winner by champion probability so the bracket ends with the
+      // overall most-likely champion. The pairwise probabilities shown to the
+      // user still reflect the actual head-to-head matchup.
+      const winner = (championProbs[a] ?? 0) >= (championProbs[b] ?? 0) ? a : b;
       const prob_winner = winner === a ? cell.p_a : cell.p_b;
       matches.push({
         stage,

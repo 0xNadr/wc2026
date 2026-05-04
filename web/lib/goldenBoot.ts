@@ -5,7 +5,9 @@ export type GoldenBootEntry = {
   rank: number;
   scorer: string;
   team: string;
-  share: number;
+  blended_share: number;
+  hist_share: number;
+  fc25_share: number;
   expected_team_goals: number;
   expected_player_goals: number;
   n_recent_goals: number;

@@ -358,11 +358,15 @@ export default function DocsPage() {
                 <strong>Per-team home advantage</strong> as a hierarchical Normal:{" "}
                 γ<sub>i</sub> ~ Normal(γ<sub>μ</sub>, σ<sub>γ</sub>) instead of a single global γ.
                 Empirical data (Kneafsey &amp; Mueller 2017) shows the home bonus ranges 0.2 to 0.5
-                log-goals across nations. The model now extracts that variance from training data —
-                CONMEBOL teams (high-altitude venues, partisan crowds) tend toward the high end,
-                shifting <strong>Brazil up to 16.1%</strong> champion probability (was 13.7%) and{" "}
-                <strong>Spain down to 13.2%</strong> (was 14.8%) as the model credits Brazil's
-                home form less to its baseline strength.
+                log-goals across nations. The model now extracts that variance from training data.
+              </li>
+              <li>
+                <strong>Confederation-level shrinkage priors</strong>. Each team's att/def now
+                shrinks toward its confederation mean (UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC) on
+                top of the global ZeroSumNormal prior. Sparse-data teams (Curaçao, Cape Verde) are
+                pulled toward their continental baseline rather than a global mean — and the
+                top-end gets compressed: <strong>Spain 14.7%</strong>, Brazil 14.7%, Argentina
+                12.9% on the latest run, the closest to the bookmaker market we've had.
               </li>
             </ul>
           </div>
@@ -372,11 +376,6 @@ export default function DocsPage() {
               Next
             </Badge>
             <ul className="list-disc pl-5 space-y-2 mt-2">
-              <li>
-                <strong>Confederation level shrinkage targets</strong>. Sparse data teams currently
-                shrink toward a global mean. Shrinking Curaçao toward a CONCACAF mean and France
-                toward a UEFA mean would respect the structural difference in baselines.
-              </li>
               <li>
                 <strong>Squad list updates</strong>. When 26 man rosters drop ~2026-06-01, recompute
                 squad strength using only listed players (currently uses the broader player

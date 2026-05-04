@@ -53,7 +53,7 @@ export default async function GoldenBootPage() {
                 <div className="text-xs text-muted-foreground">expected tournament goals</div>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground border-t pt-2">
-                <span>{(p.share * 100).toFixed(0)}% national-team share</span>
+                <span>{(p.blended_share * 100).toFixed(0)}% national-team share</span>
                 <span>{p.n_recent_goals} recent goals</span>
               </div>
             </CardContent>
@@ -97,7 +97,7 @@ export default async function GoldenBootPage() {
                       </Link>
                     </td>
                     <td className="p-1.5 sm:p-2 text-right font-mono tabular-nums hidden sm:table-cell">
-                      {(p.share * 100).toFixed(1)}%
+                      {(p.blended_share * 100).toFixed(1)}%
                     </td>
                     <td className="p-1.5 sm:p-2 text-right font-mono tabular-nums hidden md:table-cell">
                       {p.expected_team_goals.toFixed(1)}
