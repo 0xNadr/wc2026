@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { teamFlag } from "@/lib/format";
 import type { Matchups } from "@/lib/matchups";
+import { trackEvent } from "@/lib/analytics";
 
 function pct(v: number) {
   return `${(v * 100).toFixed(1)}%`;
@@ -43,6 +44,13 @@ export function MatchupExplorer({ data }: { data: Matchups }) {
   const teams = data.teams;
   const [a, setA] = useState("Argentina");
   const [b, setB] = useState("Brazil");
+
+  useEffect(() => {
+    if (a === b) return;
+    const pair = [a, b].slice().sort().join("-vs-");
+    const t = setTimeout(() => trackEvent(`matchup-${pair}`), 600);
+    return () => clearTimeout(t);
+  }, [a, b]);
 
   const cell = data.matchups[`${a}|${b}`];
   if (!cell || a === b) {

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
 import { teamFlag } from "@/lib/format";
 import { CONFEDERATION_NAMES, type TeamMetas } from "@/lib/teams-meta";
+import { trackEvent } from "@/lib/analytics";
 
 type Row = {
   team: string;
@@ -99,6 +100,7 @@ export function TeamGrid({ rows }: { rows: Row[] }) {
                   <li key={team}>
                     <Link
                       href={`/teams/${encodeURIComponent(team)}`}
+                      onClick={() => trackEvent(`team-click-${team}`)}
                       className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 rounded-md bg-muted/40 hover:bg-muted transition-colors"
                     >
                       <span className="text-xl sm:text-2xl shrink-0">{teamFlag(team)}</span>

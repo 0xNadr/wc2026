@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CitationBlock, DocsScrollTracker } from "@/components/docs-engagement";
 
 export const metadata = {
   title: "Methodology · WC 2026 Forecaster",
 };
+
+const CITATION = `Bennour, N. (2026). WC 2026 Forecaster: a hierarchical Bayesian model for the 2026 FIFA World Cup. https://github.com/0xNadr/wc2026`;
 
 function Code({ children }: { children: React.ReactNode }) {
   return (
@@ -25,6 +28,7 @@ function Math({ children }: { children: React.ReactNode }) {
 export default function DocsPage() {
   return (
     <div className="space-y-8 max-w-4xl">
+      <DocsScrollTracker />
       <section className="space-y-2">
         <Badge variant="outline" className="text-xs">📚 Methodology</Badge>
         <h1 className="text-3xl font-bold tracking-tight">How the model works</h1>
@@ -350,6 +354,16 @@ export default function DocsPage() {
                 2.5y was nearly identical (0.5748); the model is robust in the 2.5-4.0y range.
                 Production default bumped to 4.0y. Going below 2.0y costs ~0.01-0.02 Brier.
               </li>
+              <li>
+                <strong>Per-team home advantage</strong> as a hierarchical Normal:{" "}
+                γ<sub>i</sub> ~ Normal(γ<sub>μ</sub>, σ<sub>γ</sub>) instead of a single global γ.
+                Empirical data (Kneafsey &amp; Mueller 2017) shows the home bonus ranges 0.2 to 0.5
+                log-goals across nations. The model now extracts that variance from training data —
+                CONMEBOL teams (high-altitude venues, partisan crowds) tend toward the high end,
+                shifting <strong>Brazil up to 16.1%</strong> champion probability (was 13.7%) and{" "}
+                <strong>Spain down to 13.2%</strong> (was 14.8%) as the model credits Brazil's
+                home form less to its baseline strength.
+              </li>
             </ul>
           </div>
 
@@ -358,12 +372,6 @@ export default function DocsPage() {
               Next
             </Badge>
             <ul className="list-disc pl-5 space-y-2 mt-2">
-              <li>
-                <strong>Per team home advantage</strong>. Currently γ is a single global parameter
-                (~0.22 log-goals). Empirical data (Kneafsey &amp; Mueller 2017) shows it varies
-                from 0.2 to 0.5 across nations. A per-team γ also lets us model partial home
-                advantage at host venues (Mexico games near Los Angeles, Argentina games in Miami).
-              </li>
               <li>
                 <strong>Confederation level shrinkage targets</strong>. Sparse data teams currently
                 shrink toward a global mean. Shrinking Curaçao toward a CONCACAF mean and France
@@ -429,6 +437,18 @@ python scripts/generate_report.py  # PDF technical report`}
             </Link>
             .
           </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Cite this work</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <p className="text-xs text-muted-foreground">
+            If you use this forecaster in a paper, post, or article, a link back is appreciated.
+          </p>
+          <CitationBlock text={CITATION} />
         </CardContent>
       </Card>
 
