@@ -7,9 +7,19 @@ import { Button } from "@/components/ui/button";
 import { teamFlag } from "@/lib/format";
 import type { MatchupCell } from "@/lib/matchups";
 
-type R32Init = { a: string; b: string; probA: number; probB: number };
+type R32Init = {
+  a: string;
+  b: string;
+  probA: number;
+  probB: number;
+  defaultPick: "a" | "b";
+};
 type Pick = "a" | "b";
 type Picks = Record<string, Pick>; // key = `${stage}-${idx}`
+
+type NextStageProbs = Partial<
+  Record<"R16" | "QF" | "SF" | "Final", Record<string, number>>
+>;
 
 const STAGES = ["R32", "R16", "QF", "SF", "Final"] as const;
 const STAGE_LABEL: Record<(typeof STAGES)[number], string> = {
@@ -35,19 +45,30 @@ function lookupCell(
 export function InteractiveBracket({
   initialR32,
   matchupsData,
+  nextStageProbs,
 }: {
   initialR32: R32Init[];
   matchupsData: Record<string, MatchupCell>;
+  nextStageProbs: NextStageProbs;
 }) {
   const [picks, setPicks] = useState<Picks>(() => {
-    // Pre-fill all matches with the higher-prob pick (modal cascade)
+    // Pre-fill R32 with the server-computed default (next-stage survival).
     const p: Picks = {};
     for (let i = 0; i < initialR32.length; i++) {
-      p[`R32-${i}`] = initialR32[i].probA >= initialR32[i].probB ? "a" : "b";
+      p[`R32-${i}`] = initialR32[i].defaultPick;
     }
-    // R16/QF/SF/F picks computed in cascade below; we'll fill on first render
     return p;
   });
+
+  // For each stage, the default pick is whoever has higher probability of
+  // advancing to the NEXT stage in the simulator. This makes the initial
+  // bracket end with the model's actual most-likely champion (Brazil at
+  // 16.1%) rather than the head-to-head favorite of every pairing.
+  function defaultPickForStage(stage: keyof typeof STAGE_LABEL, a: string, b: string): Pick {
+    const probs = nextStageProbs[stage];
+    if (!probs) return "a";
+    return (probs[a] ?? 0) >= (probs[b] ?? 0) ? "a" : "b";
+  }
 
   // Compute matches per stage with cascading teams
   const stages = useMemo(() => {
@@ -55,7 +76,7 @@ export function InteractiveBracket({
     // R32
     result.R32 = initialR32.map((m, i) => ({
       ...m,
-      pick: picks[`R32-${i}`] ?? (m.probA >= m.probB ? "a" : "b"),
+      pick: picks[`R32-${i}`] ?? m.defaultPick,
     }));
 
     // Subsequent rounds: pair up winners
@@ -71,13 +92,13 @@ export function InteractiveBracket({
         const winnerB = mb.pick === "a" ? mb.a : mb.b;
         const { probA, probB } = lookupCell(matchupsData, winnerA, winnerB);
         const idx = i / 2;
-        const p = picks[`${cur}-${idx}`] ?? (probA >= probB ? "a" : "b");
+        const p = picks[`${cur}-${idx}`] ?? defaultPickForStage(cur, winnerA, winnerB);
         matches.push({ a: winnerA, b: winnerB, probA, probB, pick: p });
       }
       result[cur] = matches;
     }
     return result;
-  }, [picks, initialR32, matchupsData]);
+  }, [picks, initialR32, matchupsData, nextStageProbs]);
 
   function setPick(stage: string, idx: number, p: Pick) {
     const key = `${stage}-${idx}`;

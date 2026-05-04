@@ -29,7 +29,9 @@ function MatchCard({
   ctx?: TeamCtx;
 }) {
   const aWin = match.winner === match.team_a;
-  const probWinner = aWin ? match.prob_a : 1 - match.prob_a;
+  // Use the actual pairwise win probability for the winner, not 1 - p_a (which
+  // would lump in the draw probability and overstate the favorite).
+  const probWinner = match.prob_winner;
   const isFinal = match.stage === "Final";
 
   return (
@@ -180,11 +182,7 @@ export function BracketDiagram({
                 <div className="text-3xl mb-1">{teamFlag(final.winner)}</div>
                 <div className="font-bold text-sm truncate">{final.winner}</div>
                 <div className="text-[10px] text-muted-foreground mt-1 font-mono tabular-nums">
-                  wins{" "}
-                  {pct(
-                    final.winner === final.team_a ? final.prob_a : 1 - final.prob_a,
-                    0,
-                  )}
+                  wins {pct(final.prob_winner, 0)}
                 </div>
               </div>
               <div className="min-w-0">
@@ -213,11 +211,8 @@ export function BracketDiagram({
             <div className="text-5xl mb-1">{teamFlag(final.winner)}</div>
             <div className="font-bold text-lg">{final.winner}</div>
             <div className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
-              wins final {pct(
-                final.winner === final.team_a ? final.prob_a : 1 - final.prob_a,
-                0,
-              )}{" "}
-              over {final.winner === final.team_a ? final.team_b : final.team_a}
+              wins final {pct(final.prob_winner, 0)} over{" "}
+              {final.winner === final.team_a ? final.team_b : final.team_a}
             </div>
           </div>
         )}
