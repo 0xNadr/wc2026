@@ -8,10 +8,9 @@ export default async function InteractiveBracketPage() {
   const mu = await getMatchups();
   const matches = buildModalBracket(r, mu);
 
-  // Extract R32 starting teams as 16 pairs. Pre-compute the modal pick per
-  // match using champion probability so the cascade lands on the actual
-  // most-likely champion in every round.
-  const championProbs = r.probabilities.champion;
+  // Extract R32 starting teams as 16 pairs. Pre-pick the model's pairwise
+  // favorite in each match — every cascade default lines up with the
+  // probability shown next to the team.
   const r32 = matches
     .filter((m) => m.stage === "R32")
     .map((m) => ({
@@ -19,9 +18,7 @@ export default async function InteractiveBracketPage() {
       b: m.team_b,
       probA: m.cell.p_a,
       probB: m.cell.p_b,
-      defaultPick: ((championProbs[m.team_a] ?? 0) >= (championProbs[m.team_b] ?? 0) ? "a" : "b") as
-        | "a"
-        | "b",
+      defaultPick: (m.cell.p_a >= m.cell.p_b ? "a" : "b") as "a" | "b",
     }));
 
   // Pass the matchup data so client can look up p_win for any picked pair
@@ -30,16 +27,12 @@ export default async function InteractiveBracketPage() {
       <section className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Interactive bracket</h1>
         <p className="text-muted-foreground">
-          Pick winners and watch them cascade. The default picks are the model's modal choice; tap
-          a team to override. The probability shown is what the model gives for that team to win
-          this specific matchup.
+          Pick winners and watch them cascade. The default picks are the model's pairwise
+          favorite; tap a team to override. The probability shown is what the model gives for
+          that team to win this specific matchup.
         </p>
       </section>
-      <InteractiveBracket
-        initialR32={r32}
-        matchupsData={mu.matchups}
-        championProbs={championProbs}
-      />
+      <InteractiveBracket initialR32={r32} matchupsData={mu.matchups} />
     </div>
   );
 }

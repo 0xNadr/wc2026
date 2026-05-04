@@ -181,9 +181,11 @@ export function BracketDiagram({
                 </div>
                 <div className="text-3xl mb-1">{teamFlag(final.winner)}</div>
                 <div className="font-bold text-sm truncate">{final.winner}</div>
-                <div className="text-[10px] text-muted-foreground mt-1 font-mono tabular-nums">
-                  wins {pct(final.prob_winner, 0)}
-                </div>
+                {ctx?.championProbs?.[final.winner] != null && (
+                  <div className="text-[10px] text-muted-foreground mt-1 font-mono tabular-nums">
+                    wins it all {pct(ctx.championProbs[final.winner], 1)}
+                  </div>
+                )}
               </div>
               <div className="min-w-0">
                 <div className="text-center text-[9px] uppercase tracking-wider text-muted-foreground mb-1">
@@ -210,10 +212,11 @@ export function BracketDiagram({
             </div>
             <div className="text-5xl mb-1">{teamFlag(final.winner)}</div>
             <div className="font-bold text-lg">{final.winner}</div>
-            <div className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
-              wins final {pct(final.prob_winner, 0)} over{" "}
-              {final.winner === final.team_a ? final.team_b : final.team_a}
-            </div>
+            {ctx?.championProbs?.[final.winner] != null && (
+              <div className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
+                wins it all {pct(ctx.championProbs[final.winner], 1)}
+              </div>
+            )}
           </div>
         )}
         {(["R32", "R16", "QF", "SF", "Final"] as const).map((stage) => (

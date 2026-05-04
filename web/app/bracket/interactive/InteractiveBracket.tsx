@@ -42,27 +42,18 @@ function lookupCell(
 export function InteractiveBracket({
   initialR32,
   matchupsData,
-  championProbs,
 }: {
   initialR32: R32Init[];
   matchupsData: Record<string, MatchupCell>;
-  championProbs: Record<string, number>;
 }) {
   const [picks, setPicks] = useState<Picks>(() => {
-    // Pre-fill R32 with the server-computed default (next-stage survival).
+    // Pre-fill R32 with the server-computed default (pairwise favorite).
     const p: Picks = {};
     for (let i = 0; i < initialR32.length; i++) {
       p[`R32-${i}`] = initialR32[i].defaultPick;
     }
     return p;
   });
-
-  // For every match, the default pick is whoever has the higher champion
-  // probability across the full simulation. This makes the initial bracket
-  // end with the model's actual most-likely champion in every round.
-  function defaultPickForStage(_stage: keyof typeof STAGE_LABEL, a: string, b: string): Pick {
-    return (championProbs[a] ?? 0) >= (championProbs[b] ?? 0) ? "a" : "b";
-  }
 
   // Compute matches per stage with cascading teams
   const stages = useMemo(() => {
@@ -73,7 +64,8 @@ export function InteractiveBracket({
       pick: picks[`R32-${i}`] ?? m.defaultPick,
     }));
 
-    // Subsequent rounds: pair up winners
+    // Subsequent rounds: pair up winners. Default pick is the model's pairwise
+    // favorite, matching what the user sees in the percentages.
     for (let s = 1; s < STAGES.length; s++) {
       const prev = STAGES[s - 1];
       const cur = STAGES[s];
@@ -86,13 +78,13 @@ export function InteractiveBracket({
         const winnerB = mb.pick === "a" ? mb.a : mb.b;
         const { probA, probB } = lookupCell(matchupsData, winnerA, winnerB);
         const idx = i / 2;
-        const p = picks[`${cur}-${idx}`] ?? defaultPickForStage(cur, winnerA, winnerB);
+        const p = picks[`${cur}-${idx}`] ?? (probA >= probB ? "a" : "b");
         matches.push({ a: winnerA, b: winnerB, probA, probB, pick: p });
       }
       result[cur] = matches;
     }
     return result;
-  }, [picks, initialR32, matchupsData, championProbs]);
+  }, [picks, initialR32, matchupsData]);
 
   function setPick(stage: string, idx: number, p: Pick) {
     const key = `${stage}-${idx}`;

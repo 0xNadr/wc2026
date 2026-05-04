@@ -40,7 +40,15 @@ function TeamPicker({
   );
 }
 
-export function MatchupExplorer({ data }: { data: Matchups }) {
+export function MatchupExplorer({
+  data,
+  championProbs = {},
+  finalProbs = {},
+}: {
+  data: Matchups;
+  championProbs?: Record<string, number>;
+  finalProbs?: Record<string, number>;
+}) {
   const teams = data.teams;
   const [a, setA] = useState("Argentina");
   const [b, setB] = useState("Brazil");
@@ -149,14 +157,41 @@ export function MatchupExplorer({ data }: { data: Matchups }) {
             </div>
           </div>
 
-          <div className="text-xs text-muted-foreground pt-2 border-t flex items-center gap-2">
-            <Badge variant="outline" className="text-[10px]">
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t">
+            {[a, b].map((t) => (
+              <div key={t} className="rounded-md bg-muted/30 p-3 text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <span className="text-base">{teamFlag(t)}</span>
+                  <span className="text-xs font-medium">{t} tournament outlook</span>
+                </div>
+                <div className="flex justify-center gap-4 text-xs">
+                  <div>
+                    <div className="text-muted-foreground">Champion</div>
+                    <div className="font-mono tabular-nums font-semibold">
+                      {((championProbs[t] ?? 0) * 100).toFixed(2)}%
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">Reach final</div>
+                    <div className="font-mono tabular-nums font-semibold">
+                      {((finalProbs[t] ?? 0) * 100).toFixed(1)}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-xs text-muted-foreground pt-2 border-t flex items-start gap-2">
+            <Badge variant="outline" className="text-[10px] shrink-0">
               Neutral venue
             </Badge>
             <span>
-              Outcomes sampled from {data.n_samples.toLocaleString()} posterior draws of the
-              fitted Dixon-Coles model. The "expected score" averages all goal samples; the "most
-              likely scoreline" is the modal exact score.
+              Head-to-head probabilities (top bar) sampled from{" "}
+              {data.n_samples.toLocaleString()} posterior draws of the Dixon-Coles model. The
+              tournament-outlook numbers are aggregated across the 50,000 simulated tournaments
+              and account for each team's bracket path, so they can disagree with the head-to-head
+              favorite.
             </span>
           </div>
         </CardContent>

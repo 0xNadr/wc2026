@@ -34,13 +34,10 @@ export type BracketMatch = {
   cell: MatchupCell;
 };
 
-// At every match, the winner is the team with higher CHAMPION probability
-// across the full simulation. This makes the modal bracket trace the path of
-// the most-likely champion (e.g. Spain at 14.7%) — the highest-rated team
-// always advances when they're playing, and matches without that team go to
-// whoever has the higher champion % among the two. The pairwise
-// win-probability shown for each match still reflects the model's matchup
-// assessment, distinct from the chosen winner.
+// At every match, the winner is whoever the model favors head-to-head
+// (higher pairwise win probability at neutral venue). This keeps the bracket
+// internally consistent — the team shown advancing is always the same team
+// whose probability is shown next to their name.
 
 function topTeamForRank(group: string[], probs: Record<string, number>): string {
   return group.reduce((best, t) => (probs[t] > probs[best] ? t : best), group[0]);
@@ -136,15 +133,11 @@ export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
   const matches: BracketMatch[] = [];
   const stages: BracketMatch["stage"][] = ["R32", "R16", "QF", "SF", "Final"];
 
-  const championProbs = r.probabilities.champion;
   for (const stage of stages) {
     const winners: string[] = [];
     for (const [a, b] of teams) {
       const cell = lookupCell(mu, a, b);
-      // Pick the winner by champion probability so the bracket ends with the
-      // overall most-likely champion. The pairwise probabilities shown to the
-      // user still reflect the actual head-to-head matchup.
-      const winner = (championProbs[a] ?? 0) >= (championProbs[b] ?? 0) ? a : b;
+      const winner = cell.p_a >= cell.p_b ? a : b;
       const prob_winner = winner === a ? cell.p_a : cell.p_b;
       matches.push({
         stage,

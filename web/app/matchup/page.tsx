@@ -3,12 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getMatchups } from "@/lib/matchups";
 import { getTeamMetas } from "@/lib/teams";
-import { pct, teamFlag } from "@/lib/data";
+import { getResults, pct, teamFlag } from "@/lib/data";
 import { MatchupExplorer } from "./MatchupExplorer";
 
 export default async function MatchupPage() {
   const data = await getMatchups();
   const metas = await getTeamMetas();
+  const results = await getResults();
 
   // Build upset list: pairs where Elo gap >= 100 and underdog has highest P(win)
   type Upset = {
@@ -62,7 +63,11 @@ export default async function MatchupPage() {
         </p>
       </section>
 
-      <MatchupExplorer data={data} />
+      <MatchupExplorer
+        data={data}
+        championProbs={results.probabilities.champion}
+        finalProbs={results.probabilities.final}
+      />
 
       <Card>
         <CardHeader>
