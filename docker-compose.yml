@@ -1,0 +1,17 @@
+services:
+  wc2026-web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    image: wc2026-web
+    container_name: wc2026-web
+    restart: unless-stopped
+    mem_limit: 256m
+    expose:
+      - "3000"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,24 @@
+# Python pipeline artifacts not needed in the web build
+.venv/
+data/raw/
+data/processed/
+output/traces/
+output/backtest_*.csv
+notebooks/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+
+# Web dev artifacts
+web/node_modules/
+web/.next/
+web/.turbo/
+web/.env.local
+
+# Repo cruft
+.git/
+.gitignore
+*.log
+.DS_Store

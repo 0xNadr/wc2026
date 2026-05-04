@@ -1,0 +1,34 @@
+[project]
+name = "wc2026"
+version = "0.1.0"
+description = "Bayesian Monte Carlo simulator for the 2026 FIFA World Cup"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scipy>=1.13",
+    "pymc>=5.16",
+    "arviz>=0.18",
+    "pytensor>=2.25",
+    "requests>=2.32",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.2",
+    "tqdm>=4.66",
+    "pyarrow>=16.0",
+    "soccerdata>=1.8",
+    "penaltyblog>=1.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6", "ipykernel>=6.29", "jupyter>=1.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
