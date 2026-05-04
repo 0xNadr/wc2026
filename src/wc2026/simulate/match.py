@@ -4,13 +4,25 @@ from __future__ import annotations
 import numpy as np
 
 
+def _home_adv_for(home_adv: float | np.ndarray, home_idx: int | np.ndarray) -> float | np.ndarray:
+    """Look up the home-advantage value for a given home team.
+
+    Accepts either a scalar (legacy global γ) or a per-team array indexed by
+    team id. Lets the rest of the simulator stay agnostic.
+    """
+    if np.isscalar(home_adv):
+        return float(home_adv)
+    arr = np.asarray(home_adv)
+    return arr[home_idx]
+
+
 def sample_goals(
     home_idx: int | np.ndarray,
     away_idx: int | np.ndarray,
     att: np.ndarray,
     defe: np.ndarray,
     intercept: float,
-    home_adv: float,
+    home_adv: float | np.ndarray,
     rho: float,
     is_neutral: bool | np.ndarray = False,
     rng: np.random.Generator | None = None,
@@ -18,14 +30,18 @@ def sample_goals(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Return (home_goals, away_goals) sampled from Dixon-Coles bivariate Poisson.
 
+    home_adv may be a scalar (single global γ) or a per-team array of shape
+    (n_teams,). When per-team, home_adv[home_idx] is used.
+
     Sampling strategy: draw independent Poisson, then apply the τ correction via
     rejection. For low-score outcomes (each ≤1) τ ∈ [1-ρ, 1+ρ]; we accept with
     probability τ / (1+|ρ|) which keeps the acceptance rate ≥ (1-|ρ|)/(1+|ρ|).
     """
     rng = rng or np.random.default_rng()
     is_neutral_f = float(is_neutral) if np.isscalar(is_neutral) else np.asarray(is_neutral, float)
+    ha = _home_adv_for(home_adv, home_idx)
 
-    log_lam_h = intercept + att[home_idx] - defe[away_idx] + home_adv * (1 - is_neutral_f)
+    log_lam_h = intercept + att[home_idx] - defe[away_idx] + ha * (1 - is_neutral_f)
     log_lam_a = intercept + att[away_idx] - defe[home_idx]
     lam_h = np.exp(log_lam_h)
     lam_a = np.exp(log_lam_a)
@@ -66,7 +82,7 @@ def sample_knockout_winner(
     att: np.ndarray,
     defe: np.ndarray,
     intercept: float,
-    home_adv: float,
+    home_adv: float | np.ndarray,
     rho: float,
     is_neutral: bool,
     rng: np.random.Generator,
@@ -83,7 +99,8 @@ def sample_knockout_winner(
         return gh, ga, home_idx if gh > ga else away_idx
 
     # Extra time: scale rates by 30/90
-    log_lam_h = intercept + att[home_idx] - defe[away_idx] + home_adv * (0 if is_neutral else 1)
+    ha = _home_adv_for(home_adv, home_idx)
+    log_lam_h = intercept + att[home_idx] - defe[away_idx] + ha * (0 if is_neutral else 1)
     log_lam_a = intercept + att[away_idx] - defe[home_idx]
     et_h = rng.poisson(np.exp(log_lam_h) * (30 / 90))
     et_a = rng.poisson(np.exp(log_lam_a) * (30 / 90))

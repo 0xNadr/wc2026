@@ -130,7 +130,17 @@ def fit_model(
         defe = pm.Deterministic("def", def_prior_mu + sigma_def * def_raw, dims="team")
 
         intercept = pm.Normal("intercept", 0.1, 0.3)
-        home_adv = pm.Normal("home_adv", 0.25, 0.10)
+        # Per-team home advantage: each nation gets its own γ_i around a global
+        # mean. Empirical literature (Kneafsey & Mueller 2017) shows the home
+        # bonus ranges 0.2 to 0.5 log-goals across nations, with high-altitude
+        # CONMEBOL teams and isolated AFC venues at the top end. Hierarchical
+        # shrinkage keeps sparse-data teams stable.
+        home_adv_mu = pm.Normal("home_adv_mu", 0.25, 0.10)
+        home_adv_sigma = pm.HalfNormal("home_adv_sigma", 0.15)
+        home_adv_raw = pm.Normal("home_adv_raw", 0, 1, dims="team")
+        home_adv = pm.Deterministic(
+            "home_adv", home_adv_mu + home_adv_sigma * home_adv_raw, dims="team"
+        )
         # ρ is bounded to (-0.2, 0.2): the Dixon-Coles τ correction stays
         # positive for low-score (≤1) cells when |ρ|·max(λ) < 1, and λ rarely
         # exceeds ~5 in international football, so |ρ| < 0.2 is safe.
@@ -139,7 +149,7 @@ def fit_model(
         # Clip att/def at ±2 std-dev to keep early sampling stable while still
         # giving the posterior plenty of room to move.
         log_lam_h = pt.clip(
-            intercept + att[h_idx] - defe[a_idx] + home_adv * (1 - neutral),
+            intercept + att[h_idx] - defe[a_idx] + home_adv[h_idx] * (1 - neutral),
             -3.0, 3.0,
         )
         log_lam_a = pt.clip(intercept + att[a_idx] - defe[h_idx], -3.0, 3.0)

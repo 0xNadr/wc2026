@@ -53,7 +53,14 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
     att_samples = post["att"].stack(sample=("chain", "draw")).to_numpy()[keep]
     def_samples = post["def"].stack(sample=("chain", "draw")).to_numpy()[keep]
     intercept_samples = post["intercept"].stack(sample=("chain", "draw")).to_numpy()
-    home_adv_samples = post["home_adv"].stack(sample=("chain", "draw")).to_numpy()
+    # home_adv may be either scalar (legacy single-γ model) or per-team array
+    # (new hierarchical model). We always pass a per-team-aligned array forward.
+    ha_raw = post["home_adv"].stack(sample=("chain", "draw")).to_numpy()
+    if ha_raw.ndim == 1:
+        # Legacy scalar — broadcast to per-team
+        home_adv_samples = np.broadcast_to(ha_raw[None, :], (len(teams), ha_raw.shape[0]))
+    else:
+        home_adv_samples = ha_raw[keep]
     rho_samples = post["rho"].stack(sample=("chain", "draw")).to_numpy()
     n_post = att_samples.shape[1]
 
@@ -64,7 +71,7 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
         att = att_samples[:, s]
         defe = def_samples[:, s]
         intercept = float(intercept_samples[s])
-        home_adv = float(home_adv_samples[s])
+        home_adv = home_adv_samples[:, s]  # per-team array
         rho = float(rho_samples[s])
         result = simulate_tournament(groups_by_idx, att, defe, intercept,
                                      home_adv, rho, fifa_rank, rng)

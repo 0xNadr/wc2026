@@ -13,8 +13,10 @@ TOURNAMENT_START = date(2026, 6, 11)
 TOURNAMENT_END = date(2026, 7, 19)
 
 # Time-decay half-life for international football (years).
-# International rosters turn over slowly; tuned via cross-validation on past WCs.
-TIME_DECAY_HALFLIFE_YEARS = 2.5
+# Cross-validated on 2018 + 2022 World Cup back-tests (see scripts/sweep_halflife.py
+# and output/halflife_sweep.json). Best avg Brier at 4.0y (0.5745) vs 2.5y (0.5748);
+# the model is robust in the 2.5-4.0y range, but 1.0y costs ~0.014 Brier.
+TIME_DECAY_HALFLIFE_YEARS = 4.0
 
 # Match-importance weights (Elo K-factor inspired).
 MATCH_WEIGHTS = {

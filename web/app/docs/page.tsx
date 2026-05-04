@@ -339,14 +339,16 @@ export default function DocsPage() {
           </div>
 
           <div>
-            <Badge className="bg-amber-500/15 text-amber-300 border-amber-500/40 text-[10px]">
-              In flight
+            <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/40 text-[10px]">
+              Just shipped
             </Badge>
             <ul className="list-disc pl-5 space-y-2 mt-2">
               <li>
-                <strong>Cross validated time decay half life</strong>. Sweeping{" "}
+                <strong>Cross-validated time-decay half-life</strong>. Swept{" "}
                 <span className="font-mono">[1.0, 1.5, 2.0, 2.5, 3.0, 4.0]</span>-year half-lives
-                across 2018 + 2022 back-tests. Winner becomes the production default.
+                on 2018 + 2022 back-tests. <strong>4.0y wins</strong> (avg Brier 0.5745) but
+                2.5y was nearly identical (0.5748); the model is robust in the 2.5-4.0y range.
+                Production default bumped to 4.0y. Going below 2.0y costs ~0.01-0.02 Brier.
               </li>
             </ul>
           </div>

@@ -41,6 +41,8 @@ def main(n_samples: int = 5000) -> None:
     def_s = post["def"].stack(sample=("chain", "draw")).to_numpy()[keep]
     int_s = post["intercept"].stack(sample=("chain", "draw")).to_numpy()
     rho_s = post["rho"].stack(sample=("chain", "draw")).to_numpy()
+    # Note: matchups are at neutral venues, so home_adv is multiplied by 0
+    # regardless of model (scalar or per-team). Don't load it here.
     n_post = att_s.shape[1]
 
     rng = np.random.default_rng(26)
