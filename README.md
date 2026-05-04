@@ -1,11 +1,17 @@
 # WC 2026 Forecaster
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Bayesian Monte Carlo simulator for the 2026 FIFA World Cup. Fits a hierarchical
 Dixon-Coles bivariate Poisson model on a century of international results, draws
 50,000 posterior tournament rollouts, and serves the aggregated probabilities
 through a Next.js dashboard.
 
 Live: <https://wc2026.nader.info>
+
+> Educational and research project. Probabilities are model output, not betting
+> advice; calibration is good but the tail is wide. Past performance does not
+> predict future tournaments.
 
 ## What it produces
 
@@ -107,6 +113,27 @@ site documents the rest.
 - EA FC 25 player ratings for 18,205 footballers (Kaggle)
 - Official FIFA Final Draw (5 December 2025, Washington DC)
 
+## Contributing
+
+Issues and pull requests welcome — bug reports, methodology critiques, or
+data-source suggestions are all useful. For larger changes (new model
+component, alternative simulation strategy), open an issue first so we can
+agree on scope.
+
+## Citing
+
+If you use this work in a paper or post, a link back to the repository is
+appreciated:
+
+```
+Bennour, N. (2026). WC 2026 Forecaster: a hierarchical Bayesian model for
+the 2026 FIFA World Cup. https://github.com/0xNadr/wc2026
+```
+
 ## License
 
-Private repository. All rights reserved.
+[MIT](LICENSE) © 2026 Nader Bennour.
+
+The code is MIT-licensed. Upstream data sources retain their own terms — in
+particular, EA FC 25 ratings and `martj42/international_results` are reused
+under the licenses listed in their respective repositories.
