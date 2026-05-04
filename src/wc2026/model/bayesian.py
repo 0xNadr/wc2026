@@ -99,10 +99,13 @@ def fit_model(
     cores: int | None = None,
     target_accept: float = 0.95,
     seed: int = 26,
+    use_confederation_priors: bool = True,
 ) -> az.InferenceData:
     """Fit the hierarchical Dixon-Coles model and return the posterior trace."""
+    from ..data.confederations import confederation_indices
     n_teams = len(teams)
     att_mu, def_mu = build_priors(teams, elo, squad)
+    conf_idx_list, conf_names = confederation_indices(teams) if use_confederation_priors else ([], [])
 
     h_idx = matches["home_idx"].to_numpy()
     a_idx = matches["away_idx"].to_numpy()
@@ -112,6 +115,8 @@ def fit_model(
     neutral = matches["is_neutral"].to_numpy()
 
     coords = {"team": teams, "match": np.arange(len(matches))}
+    if use_confederation_priors and conf_names:
+        coords["confederation"] = conf_names
     with pm.Model(coords=coords) as model:
         att_prior_mu = pm.Data("att_prior_mu", att_mu, dims="team")
         def_prior_mu = pm.Data("def_prior_mu", def_mu, dims="team")
@@ -126,8 +131,33 @@ def fit_model(
         att_raw = pm.ZeroSumNormal("att_raw", sigma=1.0, dims="team")
         def_raw = pm.ZeroSumNormal("def_raw", sigma=1.0, dims="team")
 
-        att = pm.Deterministic("att", att_prior_mu + sigma_att * att_raw, dims="team")
-        defe = pm.Deterministic("def", def_prior_mu + sigma_def * def_raw, dims="team")
+        if use_confederation_priors and conf_names:
+            # Per-confederation offset (relative to global mean = 0). Sparse-data
+            # teams shrink toward their confederation mean rather than the global
+            # mean, so Curaçao stays "CONCACAF-like" instead of being pulled
+            # toward "the average international football team" overall.
+            sigma_conf_att = pm.HalfNormal("sigma_conf_att", 0.20)
+            sigma_conf_def = pm.HalfNormal("sigma_conf_def", 0.20)
+            conf_att_raw = pm.ZeroSumNormal("conf_att_raw", sigma=1.0, dims="confederation")
+            conf_def_raw = pm.ZeroSumNormal("conf_def_raw", sigma=1.0, dims="confederation")
+            mu_conf_att = pm.Deterministic("mu_conf_att",
+                                           sigma_conf_att * conf_att_raw, dims="confederation")
+            mu_conf_def = pm.Deterministic("mu_conf_def",
+                                           sigma_conf_def * conf_def_raw, dims="confederation")
+            conf_idx = np.array(conf_idx_list)
+            att = pm.Deterministic(
+                "att",
+                att_prior_mu + mu_conf_att[conf_idx] + sigma_att * att_raw,
+                dims="team",
+            )
+            defe = pm.Deterministic(
+                "def",
+                def_prior_mu + mu_conf_def[conf_idx] + sigma_def * def_raw,
+                dims="team",
+            )
+        else:
+            att = pm.Deterministic("att", att_prior_mu + sigma_att * att_raw, dims="team")
+            defe = pm.Deterministic("def", def_prior_mu + sigma_def * def_raw, dims="team")
 
         intercept = pm.Normal("intercept", 0.1, 0.3)
         # Per-team home advantage: each nation gets its own γ_i around a global

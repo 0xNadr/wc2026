@@ -73,13 +73,16 @@ def predict_match_probs(
     n_total = n_post_samples * n_score_samples
     sample_idx = rng.integers(0, att_samples.shape[1], size=n_post_samples)
 
+    # home_adv may be 1D (legacy global γ) or 2D (per-team γ_i, shape n_teams×n_post)
+    home_adv_per_team = home_adv_samples.ndim == 2
+
     home_wins = draws = away_wins = 0
     total_goals = 0.0
     for s in sample_idx:
         att = att_samples[:, s]
         defe = def_samples[:, s]
         intercept = intercept_samples[s]
-        home_adv = home_adv_samples[s]
+        home_adv = home_adv_samples[home_idx, s] if home_adv_per_team else home_adv_samples[s]
         rho = rho_samples[s]
         log_lh = intercept + att[home_idx] - defe[away_idx] + home_adv * (0 if is_neutral else 1)
         log_la = intercept + att[away_idx] - defe[home_idx]
