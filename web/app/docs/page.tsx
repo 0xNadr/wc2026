@@ -221,18 +221,18 @@ export default function DocsPage() {
                 <tr className="border-b border-border/30">
                   <td className="py-1">2018</td>
                   <td className="text-right">64</td>
-                  <td className="text-right">0.582</td>
-                  <td className="text-right">0.978</td>
-                  <td className="text-right">54.7%</td>
-                  <td className="text-right">1.20</td>
+                  <td className="text-right">0.570</td>
+                  <td className="text-right">0.959</td>
+                  <td className="text-right">56.2%</td>
+                  <td className="text-right">1.18</td>
                 </tr>
                 <tr className="border-b border-border/30">
                   <td className="py-1">2022</td>
                   <td className="text-right">64</td>
-                  <td className="text-right">0.569</td>
-                  <td className="text-right">0.971</td>
-                  <td className="text-right">57.8%</td>
-                  <td className="text-right">1.42</td>
+                  <td className="text-right">0.567</td>
+                  <td className="text-right">0.973</td>
+                  <td className="text-right">53.1%</td>
+                  <td className="text-right">1.41</td>
                 </tr>
                 <tr className="text-muted-foreground">
                   <td className="py-1">Naive (1/3-1/3-1/3)</td>
