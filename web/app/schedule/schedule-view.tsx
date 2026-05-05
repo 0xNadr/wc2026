@@ -64,7 +64,7 @@ type StageBadge = { label: string; tone: string };
 function stageBadge(stage: string, group: string | null): StageBadge {
   if (group)
     return {
-      label: `Group ${group}`,
+      label: group,
       tone: "bg-muted text-muted-foreground border-border",
     };
   if (stage === "Round of 32")
@@ -78,7 +78,7 @@ function stageBadge(stage: string, group: string | null): StageBadge {
   if (stage === "Third place")
     return { label: "3rd", tone: "bg-zinc-500/15 text-zinc-600 dark:text-zinc-300 border-zinc-500/30" };
   if (stage === "Final")
-    return { label: "FINAL", tone: "bg-live/15 text-live border-live/30" };
+    return { label: "F", tone: "bg-live/15 text-live border-live/30" };
   return { label: stage, tone: "bg-muted text-muted-foreground border-border" };
 }
 
@@ -86,7 +86,9 @@ function isPlaceholder(team: string): boolean {
   return /^(Winner|Runner-up|Loser|3rd)\b/i.test(team);
 }
 
-function TeamLabel({ name, align }: { name: string; align: "left" | "right" }) {
+type TeamAlign = "left" | "right" | "left-mobile-right-desktop";
+
+function TeamLabel({ name, align }: { name: string; align: TeamAlign }) {
   const placeholder = isPlaceholder(name);
   const flag = (
     <span className="text-base shrink-0 leading-none">
@@ -102,6 +104,21 @@ function TeamLabel({ name, align }: { name: string; align: "left" | "right" }) {
       {name}
     </span>
   );
+  if (align === "left-mobile-right-desktop") {
+    // Home team: flag-then-name on mobile (left-aligned), name-then-flag on desktop (right-aligned).
+    return (
+      <span className="flex items-center gap-1.5 min-w-0 justify-start sm:justify-end">
+        <span className="contents sm:hidden">
+          {flag}
+          {label}
+        </span>
+        <span className="hidden sm:contents">
+          {label}
+          {flag}
+        </span>
+      </span>
+    );
+  }
   return (
     <span
       className={`flex items-center gap-1.5 min-w-0 ${
@@ -256,13 +273,14 @@ export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
                 return (
                   <li
                     key={m.match}
-                    className={`relative grid grid-cols-[3.25rem_3.5rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)_auto] items-center gap-x-2 sm:gap-x-3 px-3 py-2 text-sm hover:bg-muted/40 transition-colors ${
+                    className={`relative flex items-center gap-2 sm:gap-3 px-3 py-2 text-sm hover:bg-muted/40 transition-colors ${
                       isNext
                         ? "before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-live"
                         : ""
                     }`}
                   >
-                    <div className="flex flex-col leading-tight">
+                    {/* Time block — fixed width */}
+                    <div className="flex flex-col leading-tight shrink-0 w-12">
                       <span className="font-mono tabular-nums font-semibold text-foreground">
                         {time}
                       </span>
@@ -270,25 +288,32 @@ export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
                         {tzAbbr}
                       </span>
                     </div>
-                    <span
-                      className={`inline-flex items-center justify-center h-5 px-1.5 text-[10px] font-semibold uppercase tracking-wide border rounded-sm tabular-nums ${sb.tone}`}
-                    >
-                      {sb.label}
-                    </span>
-                    <div className="min-w-0 text-right">
-                      <TeamLabel name={m.home} align="right" />
+
+                    {/* Teams — stacked on mobile, horizontal on sm+ */}
+                    <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                      {/* Mobile: stacked rows. Desktop: home — – — away. */}
+                      <div className="min-w-0 sm:flex-1 sm:text-right">
+                        <TeamLabel name={m.home} align="left-mobile-right-desktop" />
+                      </div>
+                      <span className="hidden sm:inline text-muted-foreground/60 text-xs">–</span>
+                      <div className="min-w-0 sm:flex-1">
+                        <TeamLabel name={m.away} align="left" />
+                      </div>
                     </div>
-                    <span className="text-muted-foreground/60 text-xs text-center">–</span>
-                    <div className="min-w-0">
-                      <TeamLabel name={m.away} align="left" />
-                    </div>
-                    <div className="hidden sm:flex items-center gap-2 shrink-0 pl-2">
+
+                    {/* Right cluster — badge, optional live dot, optional city */}
+                    <div className="flex items-center gap-2 shrink-0">
                       {isNext && <span className="live-dot" aria-label="Next match" />}
                       <span
-                        className="text-xs text-muted-foreground truncate max-w-[10rem]"
+                        className="hidden md:inline text-xs text-muted-foreground truncate max-w-[8rem]"
                         title={m.venue}
                       >
                         {m.city}
+                      </span>
+                      <span
+                        className={`inline-flex items-center justify-center h-5 min-w-[1.5rem] px-1.5 text-[10px] font-semibold uppercase tracking-wide border rounded-sm tabular-nums whitespace-nowrap ${sb.tone}`}
+                      >
+                        {sb.label}
                       </span>
                     </div>
                   </li>
