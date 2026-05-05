@@ -5,10 +5,13 @@ import { getResults, pct, teamFlag, topN } from "@/lib/data";
 import { getTeamMetas } from "@/lib/teams";
 import { STAGE_LABEL, STAGES } from "@/lib/types";
 import { ChampionSunburst } from "@/components/sunburst";
+import { UpcomingMatches } from "@/components/upcoming-matches";
+import { getSchedule } from "@/lib/schedule-data";
 
 export default async function HomePage() {
   const r = await getResults();
   const metas = await getTeamMetas();
+  const schedule = await getSchedule();
   const topChampions = topN(r.probabilities.champion, 12, (v) => v);
   const podium = topChampions.slice(0, 3);
   const totalCovered = topChampions.reduce((acc, [, p]) => acc + p, 0);
@@ -132,6 +135,9 @@ export default async function HomePage() {
           </ul>
         </CardContent>
       </Card>
+
+      {/* Upcoming matches preview — tap to see full schedule */}
+      <UpcomingMatches matches={schedule.matches} />
 
       {/* Sunburst: where champion probability lives by confederation */}
       <Card>

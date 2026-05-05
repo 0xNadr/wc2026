@@ -15,6 +15,7 @@ type NavLink = {
 
 const links: NavLink[] = [
   { href: "/", label: "Champion" },
+  { href: "/schedule", label: "Schedule" },
   { href: "/groups", label: "Group Stage" },
   { href: "/bracket", label: "Bracket" },
   { href: "/bracket/interactive", label: "My Picks" },
