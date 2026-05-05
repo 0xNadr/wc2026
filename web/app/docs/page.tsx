@@ -3,6 +3,8 @@ import { BookOpen } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CitationBlock, DocsScrollTracker } from "@/components/docs-engagement";
+import { HomeAdvantageChart } from "@/components/home-advantage-chart";
+import { HalfLifeChart } from "@/components/halflife-chart";
 
 export const metadata = {
   title: "Methodology · WC 2026 Forecaster",
@@ -152,11 +154,13 @@ export default function DocsPage() {
             Spain in 2026. We weight every match in the likelihood by:
           </p>
           <Math>
-            weight = exp(−ln(2) · age_years / 2.5) · importance
+            weight = exp(−ln(2) · age_years / 4.0) · importance
           </Math>
           <p>
-            The time decay half life is 2.5 years, much longer than club football (typically
-            3-6 months) because national team rosters turn over slowly. The importance term
+            The time decay half life is 4 years (cross-validated against the 2018 and 2022
+            World Cup back-tests; best avg Brier 0.5745 at 4y vs 0.5748 at 2.5y), much longer
+            than club football (typically 3–6 months) because national team rosters turn over
+            slowly. The importance term
             follows the Elo K-factor convention: World Cup matches at 1.0, qualifiers at 0.65,
             major continental tournaments at 0.85, friendlies at 0.30 (managers experiment, the
             signal is weaker).
@@ -308,6 +312,99 @@ export default function DocsPage() {
               <code className="text-xs">src/wc2026/draw.py</code>.
             </li>
           </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-2">
+            <span>Half-life sensitivity (back-test)</span>
+            <Badge variant="outline" className="text-[10px] gap-1">
+              cross-validation
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <HalfLifeChart />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-2">
+            <span>Per-team home advantage — posterior estimates</span>
+            <Badge variant="outline" className="text-[10px] gap-1">
+              validation
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <HomeAdvantageChart />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>What&rsquo;s NOT in the model</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm space-y-3">
+          <p>
+            Honesty about absences matters as much as accuracy about what&rsquo;s included. The
+            model deliberately does not use:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Injuries and suspensions.</strong> No public real-time feed is reliable
+              enough to incorporate without injecting noise. The model is blind to whether a key
+              player is fit on matchday.
+            </li>
+            <li>
+              <strong>Final tournament squads.</strong> Coaches name 26-player squads in late
+              May / early June 2026. Those squads are not yet known when the model is fit, so it
+              works from EA FC 25&rsquo;s top-23 by overall rating per nation, which is a proxy
+              for the &ldquo;most likely squad&rdquo; rather than the actual one.
+            </li>
+            <li>
+              <strong>In-tournament results.</strong> Once the World Cup begins, the dashboard is
+              a snapshot. To reflect actual matchday outcomes, the pipeline must be re-run
+              manually &mdash; there is no live update loop.
+            </li>
+            <li>
+              <strong>Recent form / momentum</strong> beyond what is implicit in Elo and the
+              4-year time-decay weight. There is no separate &ldquo;hot streak&rdquo; multiplier.
+            </li>
+            <li>
+              <strong>Lineup-specific xG / per-shot data.</strong> StatsBomb event data exists
+              for some matches but isn&rsquo;t consistently available for international football
+              over the full historical window, so the model uses final-score Poisson rates only.
+            </li>
+            <li>
+              <strong>Manager / coaching effects.</strong> No per-coach term. Tournament
+              specialists (e.g. teams that consistently overperform in knockouts) get no boost
+              beyond what the data has already imparted to that team&rsquo;s att/def parameters.
+            </li>
+            <li>
+              <strong>Travel and rest.</strong> 2026&rsquo;s three-host format means some teams
+              cross more time zones than others. The model treats every match as venue-neutral
+              once the per-team home advantage term is accounted for.
+            </li>
+            <li>
+              <strong>Position-aware EA FC ratings.</strong> The Kaggle dump exposes a single{" "}
+              <code className="text-xs">overall_rating</code> per player (their primary-position
+              OVR). Versatile players (e.g. a left-back with attacking attributes who could play
+              CAM at a higher OVR) get counted at their lower primary-position rating. Computing
+              per-position OVR requires either per-player sofifa scraping or replicating EA&rsquo;s
+              undocumented position-fit formula from raw attributes. Given the squad term is only
+              a 30% prior weight and hierarchical shrinkage damps the effect, the team-level
+              impact is small.
+            </li>
+          </ul>
+          <p className="text-muted-foreground">
+            Adding noisy or partial signals to a calibrated Bayesian model usually hurts
+            calibration unless the new signal has a well-formed prior. Several of these are on
+            the roadmap below; the others stay out unless they can be added without degrading
+            the back-test Brier.
+          </p>
         </CardContent>
       </Card>
 

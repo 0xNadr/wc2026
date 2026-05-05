@@ -98,7 +98,7 @@ Goals scored by each side are modelled as Poisson with team-specific rates:
 The two scorelines are coupled by the Dixon-Coles tau correction on the four
 lowest-score cells. Every parameter has a prior; we fit by NUTS in PyMC. Att
 and def use ZeroSumNormal priors anchored by current Elo (70%) and EA FC 25
-top-23 squad strength (30%). Matches are weighted by `exp(-ln 2 * age / 2.5)
+top-23 squad strength (30%). Matches are weighted by `exp(-ln 2 * age / 4.0)
 * importance`, where importance follows the Elo K-factor convention (WC 1.0,
 qualifiers 0.65, friendlies 0.30). The simulator draws one full posterior
 sample per tournament, so the final probabilities propagate the model's full

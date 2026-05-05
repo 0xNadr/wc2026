@@ -260,8 +260,8 @@ export default async function HomePage() {
           Back-tested against 2018 + 2022 World Cups: Brier{" "}
           <span className="font-mono font-medium">0.58</span>, accuracy{" "}
           <span className="font-mono font-medium">55 to 58%</span>, in line with FiveThirtyEight SPI
-          and bookmaker-grade systems. Fitted on 4,226 international matches since 1990 with
-          time-decay (2.5-yr half-life) and tournament-importance weighting.
+          and bookmaker-grade systems. Fitted on ~31k international matches since 1990 with
+          time-decay (4-yr half-life, cross-validated) and tournament-importance weighting.
         </p>
       </section>
     </div>
