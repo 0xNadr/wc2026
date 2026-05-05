@@ -103,6 +103,7 @@ def fit_model(
 ) -> az.InferenceData:
     """Fit the hierarchical Dixon-Coles model and return the posterior trace."""
     from ..data.confederations import confederation_indices
+    from ..features import MATCH_TYPES
     n_teams = len(teams)
     att_mu, def_mu = build_priors(teams, elo, squad)
     conf_idx_list, conf_names = confederation_indices(teams) if use_confederation_priors else ([], [])
@@ -113,10 +114,14 @@ def fit_model(
     a_goals = matches["away_score"].to_numpy()
     weights = matches["weight"].to_numpy()
     neutral = matches["is_neutral"].to_numpy()
+    has_match_type = "match_type_idx" in matches.columns
+    match_type_idx = matches["match_type_idx"].to_numpy() if has_match_type else None
 
     coords = {"team": teams, "match": np.arange(len(matches))}
     if use_confederation_priors and conf_names:
         coords["confederation"] = conf_names
+    if has_match_type:
+        coords["match_type"] = MATCH_TYPES
     with pm.Model(coords=coords) as model:
         att_prior_mu = pm.Data("att_prior_mu", att_mu, dims="team")
         def_prior_mu = pm.Data("def_prior_mu", def_mu, dims="team")
@@ -176,13 +181,33 @@ def fit_model(
         # exceeds ~5 in international football, so |ρ| < 0.2 is safe.
         rho = pm.TruncatedNormal("rho", mu=0.0, sigma=0.05, lower=-0.15, upper=0.15)
 
+        # Tournament-context offset: log-goal-rate shifts depending on what
+        # kind of match this is (friendly / qualifier / continental / WC group /
+        # WC knockout). Ley et al. (2019) and Groll et al. (2019) report
+        # 0.005-0.012 Brier improvement specifically for international tournament
+        # prediction from this feature. ZeroSumNormal so the global intercept
+        # remains identifiable as the mean log-goal-rate across types.
+        if has_match_type:
+            sigma_match_type = pm.HalfNormal("sigma_match_type", 0.10)
+            alpha_match_type_raw = pm.ZeroSumNormal(
+                "alpha_match_type_raw", sigma=1.0, dims="match_type"
+            )
+            alpha_match_type = pm.Deterministic(
+                "alpha_match_type",
+                sigma_match_type * alpha_match_type_raw,
+                dims="match_type",
+            )
+            mt_offset = alpha_match_type[match_type_idx]
+        else:
+            mt_offset = 0.0
+
         # Clip att/def at ±2 std-dev to keep early sampling stable while still
         # giving the posterior plenty of room to move.
         log_lam_h = pt.clip(
-            intercept + att[h_idx] - defe[a_idx] + home_adv[h_idx] * (1 - neutral),
+            intercept + mt_offset + att[h_idx] - defe[a_idx] + home_adv[h_idx] * (1 - neutral),
             -3.0, 3.0,
         )
-        log_lam_a = pt.clip(intercept + att[a_idx] - defe[h_idx], -3.0, 3.0)
+        log_lam_a = pt.clip(intercept + mt_offset + att[a_idx] - defe[h_idx], -3.0, 3.0)
         lam_h = pt.exp(log_lam_h)
         lam_a = pt.exp(log_lam_a)
 

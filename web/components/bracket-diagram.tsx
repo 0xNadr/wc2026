@@ -1,3 +1,4 @@
+import { Trophy } from "lucide-react";
 import { teamFlag, pct } from "@/lib/format";
 import type { BracketMatch } from "@/lib/bracket";
 import type { TeamMetas } from "@/lib/teams-meta";
@@ -176,8 +177,9 @@ export function BracketDiagram({
               style={{ gridColumn: 5, gridRow: "2 / span 16" }}
             >
               <div className="rounded-lg bg-gradient-to-br from-amber-400/20 via-amber-500/10 to-transparent ring-2 ring-amber-500/40 p-2 text-center min-w-0">
-                <div className="text-[9px] uppercase tracking-widest text-amber-500/90 font-semibold mb-1">
-                  🏆 Champion
+                <div className="text-[9px] uppercase tracking-widest text-amber-500/90 font-semibold mb-1 flex items-center justify-center gap-1">
+                  <Trophy className="w-3 h-3" />
+                  Champion
                 </div>
                 <div className="text-3xl mb-1">{teamFlag(final.winner)}</div>
                 <div className="font-bold text-sm truncate">{final.winner}</div>
@@ -207,8 +209,9 @@ export function BracketDiagram({
       <div className="lg:hidden space-y-5">
         {final && (
           <div className="rounded-lg bg-gradient-to-br from-amber-400/20 via-amber-500/10 to-transparent ring-2 ring-amber-500/40 p-4 text-center">
-            <div className="text-[10px] uppercase tracking-widest text-amber-500/90 font-semibold mb-1">
-              🏆 Modal Champion
+            <div className="text-[10px] uppercase tracking-widest text-amber-500/90 font-semibold mb-1 flex items-center justify-center gap-1">
+              <Trophy className="w-3.5 h-3.5" />
+              Modal Champion
             </div>
             <div className="text-5xl mb-1">{teamFlag(final.winner)}</div>
             <div className="font-bold text-lg">{final.winner}</div>

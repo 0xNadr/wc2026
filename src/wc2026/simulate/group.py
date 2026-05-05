@@ -25,6 +25,7 @@ def simulate_group(
     rho: float,
     fifa_rank: dict[int, int],
     rng: np.random.Generator,
+    match_type_offset: float = 0.0,
 ) -> GroupOutcome:
     """Play all 6 group fixtures, return finishing order + per-team stats.
 
@@ -46,7 +47,8 @@ def simulate_group(
         for j in range(i + 1, n):
             home, away = team_indices[i], team_indices[j]
             gh, ga_ = sample_goals(home, away, att, defe, intercept, home_adv, rho,
-                                   is_neutral=True, rng=rng)
+                                   is_neutral=True, rng=rng,
+                                   match_type_offset=match_type_offset)
             gh, ga_ = int(gh), int(ga_)
             gf[i] += gh; ga[i] += ga_
             gf[j] += ga_; ga[j] += gh

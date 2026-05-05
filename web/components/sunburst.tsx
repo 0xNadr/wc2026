@@ -1,3 +1,4 @@
+import { Trophy } from "lucide-react";
 import type { TeamMetas } from "@/lib/teams";
 
 type Slice = {
@@ -135,15 +136,13 @@ export function ChampionSunburst({
         preserveAspectRatio="xMidYMid meet"
       >
         {arcs}
-        <text
-          x={cx}
-          y={cy}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          className="fill-foreground font-bold text-xl"
-        >
-          🏆
-        </text>
+        <Trophy
+          x={cx - rInner * 0.6}
+          y={cy - rInner * 0.6}
+          width={rInner * 1.2}
+          height={rInner * 1.2}
+          className="text-amber-500"
+        />
       </svg>
       <ul className="space-y-1 text-sm w-full md:w-auto">
         {confSorted.map(([conf, info]) => (

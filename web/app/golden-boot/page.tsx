@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Goal, Medal } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { teamFlag } from "@/lib/data";
@@ -8,12 +9,15 @@ export default async function GoldenBootPage() {
   const entries = await getGoldenBoot();
   const podium = entries.slice(0, 3);
   const rest = entries.slice(3);
-  const medal = ["🥇", "🥈", "🥉"];
+  const medalColor = ["text-amber-400", "text-slate-300", "text-orange-400"];
 
   return (
     <div className="space-y-8">
       <section className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">⚽ Golden Boot: top scorer prediction</h1>
+        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+          <Goal className="w-7 h-7 text-amber-500" />
+          Golden Boot: top scorer prediction
+        </h1>
         <p className="text-muted-foreground">
           Per-player expected tournament goals, computed as{" "}
           <span className="font-mono text-xs">
@@ -37,7 +41,7 @@ export default async function GoldenBootPage() {
           >
             <CardContent className="pt-6 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-3xl">{medal[i]}</span>
+                <Medal className={`w-7 h-7 ${medalColor[i]}`} />
                 <Link
                   href={`/teams/${encodeURIComponent(p.team)}`}
                   className="text-xs text-muted-foreground hover:text-foreground"

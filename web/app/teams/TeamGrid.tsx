@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, X } from "lucide-react";
+import { Search, Trophy, X } from "lucide-react";
 import { teamFlag } from "@/lib/format";
 import { CONFEDERATION_NAMES, type TeamMetas } from "@/lib/teams-meta";
 import { trackEvent } from "@/lib/analytics";
@@ -113,8 +113,10 @@ export function TeamGrid({ rows }: { rows: Row[] }) {
                             </Badge>
                           )}
                         </div>
-                        <div className="text-[11px] sm:text-xs text-muted-foreground font-mono tabular-nums truncate">
-                          Elo {meta.elo?.toFixed(0)} · group {meta.group} · 🏆 {pct(champion)}
+                        <div className="text-[11px] sm:text-xs text-muted-foreground font-mono tabular-nums truncate flex items-center gap-1">
+                          <span>Elo {meta.elo?.toFixed(0)} · group {meta.group} ·</span>
+                          <Trophy className="w-3 h-3 text-amber-500 inline shrink-0" />
+                          <span>{pct(champion)}</span>
                         </div>
                       </div>
                       <div className="text-[11px] sm:text-xs text-muted-foreground tabular-nums shrink-0">

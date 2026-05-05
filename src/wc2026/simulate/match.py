@@ -27,11 +27,17 @@ def sample_goals(
     is_neutral: bool | np.ndarray = False,
     rng: np.random.Generator | None = None,
     size: int = 1,
+    match_type_offset: float = 0.0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Return (home_goals, away_goals) sampled from Dixon-Coles bivariate Poisson.
 
     home_adv may be a scalar (single global γ) or a per-team array of shape
     (n_teams,). When per-team, home_adv[home_idx] is used.
+
+    match_type_offset is added to both teams' log-goal-rate. Simulator drivers
+    pass alpha_match_type[wc_group_idx] for group games and alpha_match_type
+    [wc_knockout_idx] for knockouts so each match is sampled in the right
+    tournament-context regime.
 
     Sampling strategy: draw independent Poisson, then apply the τ correction via
     rejection. For low-score outcomes (each ≤1) τ ∈ [1-ρ, 1+ρ]; we accept with
@@ -41,8 +47,8 @@ def sample_goals(
     is_neutral_f = float(is_neutral) if np.isscalar(is_neutral) else np.asarray(is_neutral, float)
     ha = _home_adv_for(home_adv, home_idx)
 
-    log_lam_h = intercept + att[home_idx] - defe[away_idx] + ha * (1 - is_neutral_f)
-    log_lam_a = intercept + att[away_idx] - defe[home_idx]
+    log_lam_h = intercept + match_type_offset + att[home_idx] - defe[away_idx] + ha * (1 - is_neutral_f)
+    log_lam_a = intercept + match_type_offset + att[away_idx] - defe[home_idx]
     lam_h = np.exp(log_lam_h)
     lam_a = np.exp(log_lam_a)
 
@@ -86,6 +92,7 @@ def sample_knockout_winner(
     rho: float,
     is_neutral: bool,
     rng: np.random.Generator,
+    match_type_offset: float = 0.0,
 ) -> tuple[int, int, int]:
     """Return (home_goals, away_goals, winner_idx) handling ET + penalties.
 
@@ -93,15 +100,16 @@ def sample_knockout_winner(
     flip with mild edge toward the team with higher (att - opp_def) latent diff.
     """
     gh, ga = sample_goals(home_idx, away_idx, att, defe, intercept, home_adv, rho,
-                          is_neutral=is_neutral, rng=rng)
+                          is_neutral=is_neutral, rng=rng,
+                          match_type_offset=match_type_offset)
     gh, ga = int(gh), int(ga)
     if gh != ga:
         return gh, ga, home_idx if gh > ga else away_idx
 
     # Extra time: scale rates by 30/90
     ha = _home_adv_for(home_adv, home_idx)
-    log_lam_h = intercept + att[home_idx] - defe[away_idx] + ha * (0 if is_neutral else 1)
-    log_lam_a = intercept + att[away_idx] - defe[home_idx]
+    log_lam_h = intercept + match_type_offset + att[home_idx] - defe[away_idx] + ha * (0 if is_neutral else 1)
+    log_lam_a = intercept + match_type_offset + att[away_idx] - defe[home_idx]
     et_h = rng.poisson(np.exp(log_lam_h) * (30 / 90))
     et_a = rng.poisson(np.exp(log_lam_a) * (30 / 90))
     gh += int(et_h); ga += int(et_a)

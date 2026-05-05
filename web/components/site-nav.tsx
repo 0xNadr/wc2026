@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { FileText, Menu, X } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import { ThemeToggle } from "./theme-toggle";
 
-const links = [
+type NavLink = {
+  href: string;
+  label: string;
+  Icon?: ComponentType<SVGProps<SVGSVGElement>>;
+};
+
+const links: NavLink[] = [
   { href: "/", label: "Champion" },
   { href: "/groups", label: "Group Stage" },
   { href: "/bracket", label: "Bracket" },
@@ -17,7 +24,7 @@ const links = [
   { href: "/alternate", label: "Alternate" },
   { href: "/eda", label: "EDA" },
   { href: "/docs", label: "How it works" },
-  { href: "/report.pdf", label: "📄 Report" },
+  { href: "/report.pdf", label: "Report", Icon: FileText },
 ];
 
 export function SiteNav() {
@@ -49,10 +56,11 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`hover:text-foreground transition-colors ${
+              className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${
                 pathname === l.href ? "text-foreground font-medium" : ""
               }`}
             >
+              {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
               {l.label}
             </Link>
           ))}
@@ -82,12 +90,13 @@ export function SiteNav() {
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-sm hover:bg-muted/60 transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm hover:bg-muted/60 transition-colors ${
                     pathname === l.href
                       ? "text-foreground font-medium bg-muted/40"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
+                  {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
                   {l.label}
                 </Link>
               </li>

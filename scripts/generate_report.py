@@ -88,14 +88,18 @@ def main() -> None:
         "<b>Match-outcome model:</b> Bayesian hierarchical Dixon-Coles bivariate Poisson. For "
         "each match between teams h (home) and a (away):", body))
     flow.append(Paragraph(
-        "log(λ_home) = α + att[h] − def[a] + γ[h] · (1 − is_neutral)<br/>"
-        "log(λ_away) = α + att[a] − def[h]<br/>"
+        "log(λ_home) = α + α_match[type] + att[h] − def[a] + γ[h] · (1 − is_neutral)<br/>"
+        "log(λ_away) = α + α_match[type] + att[a] − def[h]<br/>"
         "P(X=x, Y=y) ∝ τ(x, y; λ_h, λ_a, ρ) · Pois(x | λ_h) · Pois(y | λ_a)", code))
     flow.append(Paragraph(
         "<b>Priors:</b> ZeroSumNormal on att/def for identifiability, anchored by a 0.7 · Elo + "
         "0.3 · squad-strength composite. Each team also has a hierarchical confederation-level "
-        "offset and a per-team home advantage γ[i] ~ Normal(γ_μ, σ_γ). ρ ∈ (−0.15, 0.15) controls "
-        "low-score correlation. NUTS sampling, 4 chains × 2k draws, 0 divergences.", body))
+        "offset and a per-team home advantage γ[i] ~ Normal(γ_μ, σ_γ). The α_match[type] term is "
+        "a hierarchical tournament-context offset over five categories "
+        "(friendly / qualifier / continental / WC group / WC knockout) — Ley et al. (2019) and "
+        "Groll et al. (2019) report 0.005-0.012 Brier improvement specifically for international "
+        "tournament prediction from this feature. ρ ∈ (−0.15, 0.15) controls low-score correlation. "
+        "NUTS sampling, 4 chains × 2k draws, 0 divergences.", body))
     flow.append(Paragraph(
         "<b>Match weighting:</b> per-match weight = exp(−ln(2) · age / 4.0yr) · importance_weight. "
         "The 4.0-year half-life was selected by sweeping [1.0, 1.5, 2.0, 2.5, 3.0, 4.0] across "

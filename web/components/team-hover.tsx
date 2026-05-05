@@ -2,6 +2,7 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import Link from "next/link";
+import { Trophy } from "lucide-react";
 import { teamFlag, pct } from "@/lib/format";
 import { CONFEDERATION_NAMES, type TeamMetas } from "@/lib/teams-meta";
 
@@ -61,8 +62,8 @@ export function TeamHover({
                 </div>
               )}
               {championProb != null && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">🏆</span>
+                <div className="flex justify-between items-center">
+                  <Trophy className="w-3 h-3 text-amber-500" />
                   <span>{pct(championProb, championProb < 0.01 ? 2 : 1)}</span>
                 </div>
               )}

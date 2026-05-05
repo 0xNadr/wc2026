@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getMatchups } from "@/lib/matchups";
@@ -72,7 +73,8 @@ export default async function MatchupPage() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            ⚡ Most likely upsets
+            <Zap className="w-5 h-5 text-amber-500" />
+            Most likely upsets
             <Badge variant="outline" className="text-xs">
               Elo gap ≥ 150
             </Badge>

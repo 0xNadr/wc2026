@@ -64,6 +64,7 @@ def predict_match_probs(
     n_post_samples: int = 200,
     n_score_samples: int = 50,
     rng: np.random.Generator | None = None,
+    match_type_offset_samples: np.ndarray | None = None,
 ) -> tuple[float, float, float, float]:
     """Return (P(home win), P(draw), P(away win), expected total goals).
 
@@ -82,6 +83,8 @@ def predict_match_probs(
         att = att_samples[:, s]
         defe = def_samples[:, s]
         intercept = intercept_samples[s]
+        if match_type_offset_samples is not None:
+            intercept = intercept + float(match_type_offset_samples[s])
         home_adv = home_adv_samples[home_idx, s] if home_adv_per_team else home_adv_samples[s]
         rho = rho_samples[s]
         log_lh = intercept + att[home_idx] - defe[away_idx] + home_adv * (0 if is_neutral else 1)
@@ -153,6 +156,19 @@ def back_test_year(year: int, draws: int = 1000, tune: int = 1000, chains: int =
     ha_s = post["home_adv"].stack(sample=("chain", "draw")).to_numpy()
     rho_s = post["rho"].stack(sample=("chain", "draw")).to_numpy()
 
+    # Tournament-context offsets for WC group + knockout (the only types in the
+    # WC matches we're scoring). For matches the back-test predicts, we pass
+    # the right offset based on whether they're knockout or group games — same
+    # last-16-by-date heuristic used in features.classify_match_types.
+    from .features import MATCH_TYPE_IDX, classify_match_types
+    if "alpha_match_type" in post.data_vars:
+        amt = post["alpha_match_type"].stack(sample=("chain", "draw")).to_numpy()
+        wc_group_offsets = amt[MATCH_TYPE_IDX["wc_group"]]
+        wc_knockout_offsets = amt[MATCH_TYPE_IDX["wc_knockout"]]
+    else:
+        wc_group_offsets = wc_knockout_offsets = None
+    wc_match_types = classify_match_types(wc_matches)
+
     rng = np.random.default_rng(year)
     rows = []
     for _, m in wc_matches.iterrows():
@@ -160,8 +176,14 @@ def back_test_year(year: int, draws: int = 1000, tune: int = 1000, chains: int =
             continue
         hi = team_to_idx[m["home_team"]]
         ai = team_to_idx[m["away_team"]]
+        mt = wc_match_types.loc[m.name]
+        if wc_group_offsets is not None:
+            mt_off = wc_knockout_offsets if mt == "wc_knockout" else wc_group_offsets
+        else:
+            mt_off = None
         ph, pd_, pa, eg = predict_match_probs(hi, ai, att_s, def_s, int_s, ha_s, rho_s,
-                                              is_neutral=bool(m["neutral"]), rng=rng)
+                                              is_neutral=bool(m["neutral"]), rng=rng,
+                                              match_type_offset_samples=mt_off)
         b, l, c = score_match(ph, pd_, pa, int(m["home_score"]), int(m["away_score"]))
         rows.append({
             "date": m["date"].date(), "home": m["home_team"], "away": m["away_team"],

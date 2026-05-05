@@ -1,3 +1,4 @@
+import { Skull } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getResults, pct, teamFlag } from "@/lib/data";
@@ -62,7 +63,10 @@ export default async function GroupsPage() {
       <Card className="border-rose-500/30 bg-gradient-to-br from-rose-500/10 to-transparent">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span>💀 Group of Death</span>
+            <span className="flex items-center gap-1.5">
+              <Skull className="w-5 h-5 text-rose-400" />
+              Group of Death
+            </span>
             <Badge variant="outline" className="text-xs">
               competitiveness {(groupOfDeath.competitivenessScore * 100).toFixed(0)} / 100
             </Badge>

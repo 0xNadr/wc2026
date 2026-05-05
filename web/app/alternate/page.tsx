@@ -1,3 +1,4 @@
+import { Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getResults, teamFlag } from "@/lib/data";
@@ -49,7 +50,7 @@ export default async function AlternatePage() {
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center justify-between text-sm font-medium text-muted-foreground">
                 <span>Timeline #{i + 1}</span>
-                <span>🏆</span>
+                <Trophy className="w-3.5 h-3.5 text-amber-500" />
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">

@@ -64,6 +64,18 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
     rho_samples = post["rho"].stack(sample=("chain", "draw")).to_numpy()
     n_post = att_samples.shape[1]
 
+    # Tournament-context offsets (Ley et al. 2019). Pre-2026 traces won't have
+    # this variable — fall back to 0 in that case so simulate.py stays
+    # backward-compatible with older saved traces.
+    if "alpha_match_type" in post.data_vars:
+        from wc2026.features import MATCH_TYPE_IDX
+        amt = post["alpha_match_type"].stack(sample=("chain", "draw")).to_numpy()
+        wc_group_offsets = amt[MATCH_TYPE_IDX["wc_group"]]
+        wc_knockout_offsets = amt[MATCH_TYPE_IDX["wc_knockout"]]
+    else:
+        wc_group_offsets = np.zeros(n_post)
+        wc_knockout_offsets = np.zeros(n_post)
+
     rng = np.random.default_rng(RANDOM_SEED)
     results = []
     for _ in tqdm(range(n_sims), desc="simulating tournaments"):
@@ -73,8 +85,11 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
         intercept = float(intercept_samples[s])
         home_adv = home_adv_samples[:, s]  # per-team array
         rho = float(rho_samples[s])
-        result = simulate_tournament(groups_by_idx, att, defe, intercept,
-                                     home_adv, rho, fifa_rank, rng)
+        result = simulate_tournament(
+            groups_by_idx, att, defe, intercept, home_adv, rho, fifa_rank, rng,
+            wc_group_offset=float(wc_group_offsets[s]),
+            wc_knockout_offset=float(wc_knockout_offsets[s]),
+        )
         results.append(result)
 
     payload = aggregate(results, teams)

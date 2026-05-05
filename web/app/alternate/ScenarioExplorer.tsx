@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ComponentType, type SVGProps } from "react";
+import { ChartBar, Dices, Earth, Globe, Landmark, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ type ChampionMap = Record<string, number>;
 type Scenario = {
   key: string;
   label: string;
-  emoji: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
   description: string;
   factor: (team: string, meta: TeamMetas[string]) => number;
 };
@@ -26,42 +27,42 @@ const SCENARIOS: Scenario[] = [
   {
     key: "model",
     label: "Form carries through",
-    emoji: "📊",
+    Icon: ChartBar,
     description: "The model's baseline forecast. Current Elo plus squad strength dominate.",
     factor: () => 1,
   },
   {
     key: "underdog",
     label: "Heavy underdogs",
-    emoji: "⚡",
+    Icon: Zap,
     description: "What if low-Elo teams keep upsetting? Boosts inversely with Elo.",
     factor: (_, m) => teamFactor_underdog(m.elo),
   },
   {
     key: "uefa",
     label: "European dominance",
-    emoji: "🇪🇺",
+    Icon: Globe,
     description: "What if UEFA reasserts itself like 2010-2014?",
     factor: (_, m) => (m.confederation === "UEFA" ? 2.5 : 1),
   },
   {
     key: "conmebol",
     label: "South American renaissance",
-    emoji: "🌎",
+    Icon: Earth,
     description: "Brazil + Argentina + Uruguay show up to play.",
     factor: (_, m) => (m.confederation === "CONMEBOL" ? 3.0 : 1),
   },
   {
     key: "host",
     label: "Host magic",
-    emoji: "🏟️",
+    Icon: Landmark,
     description: "USA, Canada, Mexico ride home crowds deep into the bracket.",
     factor: (_, m) => (m.host ? 4.0 : 1),
   },
   {
     key: "wildcard",
     label: "Wide-open tournament",
-    emoji: "🎲",
+    Icon: Dices,
     description: "What if every team is a coin flip? Flattens probabilities toward uniform.",
     factor: () => 1, // handled specially via uniform blend
   },
@@ -143,8 +144,9 @@ export function ScenarioExplorer({
                 className="justify-start text-left h-auto py-2"
               >
                 <div className="flex flex-col items-start">
-                  <span>
-                    {s.emoji} {s.label}
+                  <span className="flex items-center gap-1.5">
+                    <s.Icon className="w-4 h-4 shrink-0" />
+                    {s.label}
                   </span>
                 </div>
               </Button>

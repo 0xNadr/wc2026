@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -118,7 +119,10 @@ export function InteractiveBracket({
         <CardHeader>
           <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <span className="flex items-center gap-2 min-w-0">
-              <span className="shrink-0">🏆 Your champion:</span>
+              <span className="shrink-0 flex items-center gap-1.5">
+                <Trophy className="w-4 h-4 text-amber-500" />
+                Your champion:
+              </span>
               {champion ? (
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="text-2xl shrink-0">{teamFlag(champion)}</span>

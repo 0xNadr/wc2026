@@ -45,6 +45,16 @@ def main(n_samples: int = 5000) -> None:
     # regardless of model (scalar or per-team). Don't load it here.
     n_post = att_s.shape[1]
 
+    # Use the WC group-stage tournament-context offset for the canonical
+    # matchup table (most relevant context for WC-2026 use cases). Falls back
+    # to 0 for legacy traces without alpha_match_type.
+    if "alpha_match_type" in post.data_vars:
+        from wc2026.features import MATCH_TYPE_IDX
+        amt = post["alpha_match_type"].stack(sample=("chain", "draw")).to_numpy()
+        mt_offsets = amt[MATCH_TYPE_IDX["wc_group"]]
+    else:
+        mt_offsets = np.zeros(n_post)
+
     rng = np.random.default_rng(26)
     sample_idx = rng.integers(0, n_post, size=n_samples)
 
@@ -56,7 +66,7 @@ def main(n_samples: int = 5000) -> None:
     for s in tqdm(sample_idx, desc="posterior draws"):
         att = att_s[:, s]
         defe = def_s[:, s]
-        intercept = float(int_s[s])
+        intercept = float(int_s[s]) + float(mt_offsets[s])
         rho = float(rho_s[s])
         # Neutral venues — no home advantage
         log_lam = intercept + att[:, None] - defe[None, :]

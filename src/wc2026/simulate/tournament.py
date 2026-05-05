@@ -60,6 +60,8 @@ def simulate_tournament(
     rho: float,
     fifa_rank: dict[int, int],
     rng: np.random.Generator,
+    wc_group_offset: float = 0.0,
+    wc_knockout_offset: float = 0.0,
 ) -> TournamentResult:
     group_finish: dict[str, list[int]] = {}
     third_pts: dict[str, int] = {}
@@ -68,7 +70,8 @@ def simulate_tournament(
 
     for letter, team_indices in groups.items():
         outcome = simulate_group(team_indices, att, defe, intercept, home_adv, rho,
-                                 fifa_rank, rng)
+                                 fifa_rank, rng,
+                                 match_type_offset=wc_group_offset)
         group_finish[letter] = outcome.finish
         third_idx = outcome.finish[2]
         third_pts[letter] = outcome.pts[third_idx]
@@ -79,12 +82,13 @@ def simulate_tournament(
                                     fifa_rank, rng)
 
     pairings = _build_r32_pairings(group_finish, advancing_thirds)
-    r32 = play_round(pairings, att, defe, intercept, home_adv, rho, rng)
-    r16 = play_round(list(zip(r32[0::2], r32[1::2])), att, defe, intercept, home_adv, rho, rng)
-    qf = play_round(list(zip(r16[0::2], r16[1::2])), att, defe, intercept, home_adv, rho, rng)
-    sf = play_round(list(zip(qf[0::2], qf[1::2])), att, defe, intercept, home_adv, rho, rng)
+    ko = wc_knockout_offset
+    r32 = play_round(pairings, att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
+    r16 = play_round(list(zip(r32[0::2], r32[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
+    qf = play_round(list(zip(r16[0::2], r16[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
+    sf = play_round(list(zip(qf[0::2], qf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
     finalists = sf
-    champ = play_round(list(zip(sf[0::2], sf[1::2])), att, defe, intercept, home_adv, rho, rng)[0]
+    champ = play_round(list(zip(sf[0::2], sf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)[0]
     runner_up = finalists[0] if finalists[1] == champ else finalists[1]
 
     return TournamentResult(

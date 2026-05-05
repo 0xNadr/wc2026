@@ -1,3 +1,4 @@
+import { Medal } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getResults, pct, teamFlag, topN } from "@/lib/data";
@@ -39,7 +40,11 @@ export default async function HomePage() {
           { idx: 0, place: 1 }, // gold, center
           { idx: 2, place: 3 }, // bronze, right
         ];
-        const medal = ["🥇", "🥈", "🥉"];
+        const medalColor = [
+          "text-amber-400",
+          "text-slate-300",
+          "text-orange-400",
+        ];
         const tones = [
           "from-amber-400/25 via-amber-500/10 to-transparent ring-amber-500/40",
           "from-slate-300/25 via-slate-400/10 to-transparent ring-slate-400/40",
@@ -68,7 +73,7 @@ export default async function HomePage() {
                     className={`${stepHeights[slot]} w-full rounded-t-lg bg-gradient-to-b ${tones[idx]} ring-1 flex items-start justify-center pt-2`}
                   >
                     <div className="flex flex-col items-center gap-0.5">
-                      <div className="text-2xl sm:text-3xl">{medal[idx]}</div>
+                      <Medal className={`w-6 h-6 sm:w-7 sm:h-7 ${medalColor[idx]}`} />
                       <div className="text-[10px] sm:text-xs font-bold text-muted-foreground tabular-nums">
                         #{place}
                       </div>

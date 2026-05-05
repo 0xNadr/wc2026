@@ -14,11 +14,13 @@ def play_round(
     home_adv: float,
     rho: float,
     rng: np.random.Generator,
+    match_type_offset: float = 0.0,
 ) -> list[int]:
     """Run one knockout round; all matches at neutral venues. Return winners."""
     winners: list[int] = []
     for h, a in pairings:
         _, _, w = sample_knockout_winner(h, a, att, defe, intercept, home_adv, rho,
-                                         is_neutral=True, rng=rng)
+                                         is_neutral=True, rng=rng,
+                                         match_type_offset=match_type_offset)
         winners.append(w)
     return winners

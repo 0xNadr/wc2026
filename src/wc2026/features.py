@@ -6,6 +6,9 @@ For Bayesian Dixon-Coles we need, per match:
     weight                    : exp(-ln(2) * age_years / halflife) * importance
     is_neutral                : 0/1 (turns off home-advantage term)
     is_friendly               : 0/1 (separate dispersion or weight)
+    match_type_idx            : index into MATCH_TYPES — used by the hierarchical
+                                tournament-context offset (Ley et al. 2019,
+                                Groll et al. 2019; ~0.005-0.012 Brier lift)
 We also build per-team prior features (Elo, squad strength) used as informative
 priors on the latent attack/defense parameters.
 """
@@ -18,6 +21,45 @@ import pandas as pd
 
 from .config import DEFAULT_MATCH_WEIGHT, MATCH_WEIGHTS, TIME_DECAY_HALFLIFE_YEARS
 from .data.matches import load_matches
+
+# Match-type taxonomy. Order matters — the model coords are built from this list.
+MATCH_TYPES: list[str] = [
+    "friendly",
+    "qualifier",
+    "continental",
+    "wc_group",
+    "wc_knockout",
+]
+MATCH_TYPE_IDX: dict[str, int] = {t: i for i, t in enumerate(MATCH_TYPES)}
+
+
+def classify_match_types(df: pd.DataFrame) -> pd.Series:
+    """Return a Series of match_type strings (one per row, aligned to df.index).
+
+    A match is classified by:
+      - "friendly" if tournament == "Friendly"
+      - "qualifier" if tournament contains "qualification"
+      - "wc_knockout" if tournament == "FIFA World Cup" and the match is in
+         the last 16 of that WC's matches by date (the standard 32-team
+         knockout-stage size; the 2026 48-team format adds R32 = 32 knockouts
+         total, but historical training data is all 16-knockout WCs)
+      - "wc_group" for the rest of FIFA World Cup matches
+      - "continental" otherwise
+    """
+    out = pd.Series("continental", index=df.index, dtype="object")
+    out[df["tournament"] == "Friendly"] = "friendly"
+    out[df["tournament"].str.contains("qualification", case=False, na=False)] = "qualifier"
+
+    wc_mask = df["tournament"] == "FIFA World Cup"
+    out[wc_mask] = "wc_group"
+    # Knockout = last 16 of each WC by date
+    if wc_mask.any():
+        for year in df.loc[wc_mask, "date"].dt.year.unique():
+            year_mask = wc_mask & (df["date"].dt.year == year)
+            sub_idx = df.loc[year_mask].sort_values("date").index
+            knockout_idx = sub_idx[-16:]  # last 16 = knockouts
+            out.loc[knockout_idx] = "wc_knockout"
+    return out
 
 
 def time_decay_weight(match_date: pd.Series, ref_date: date,
@@ -59,5 +101,7 @@ def build_training_frame(
     df["away_idx"] = df["away_team"].map(team_to_idx)
     df["is_neutral"] = df["neutral"].astype(int)
     df["is_friendly"] = df["is_friendly"].astype(int)
+    df["match_type"] = classify_match_types(df)
+    df["match_type_idx"] = df["match_type"].map(MATCH_TYPE_IDX).astype(int)
 
     return df.reset_index(drop=True), team_to_idx

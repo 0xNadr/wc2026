@@ -1,3 +1,4 @@
+import { Route } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getResults, pct, teamFlag } from "@/lib/data";
 import { getMatchups } from "@/lib/matchups";
@@ -38,7 +39,10 @@ export default async function BracketPage() {
 
       <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/[0.06] to-transparent">
         <CardHeader>
-          <CardTitle className="text-base">🛣️ Most-likely bracket path</CardTitle>
+          <CardTitle className="text-base flex items-center gap-2">
+            <Route className="w-4 h-4 text-amber-500" />
+            Most-likely bracket path
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <BracketDiagram
