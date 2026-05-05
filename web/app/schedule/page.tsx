@@ -1,6 +1,7 @@
 import { CalendarDays } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getSchedule } from "@/lib/schedule-data";
+import { getMatchups } from "@/lib/matchups";
 import { ScheduleView } from "./schedule-view";
 
 export const metadata = {
@@ -9,7 +10,16 @@ export const metadata = {
 };
 
 export default async function SchedulePage() {
-  const schedule = await getSchedule();
+  const [schedule, matchups] = await Promise.all([getSchedule(), getMatchups()]);
+
+  const enriched = schedule.matches.map((m) => {
+    const direct = matchups.matchups[`${m.home}|${m.away}`];
+    const reverse = matchups.matchups[`${m.away}|${m.home}`];
+    let winProb: { home: number; draw: number; away: number } | null = null;
+    if (direct) winProb = { home: direct.p_a, draw: direct.p_d, away: direct.p_b };
+    else if (reverse) winProb = { home: reverse.p_b, draw: reverse.p_d, away: reverse.p_a };
+    return { ...m, winProb };
+  });
 
   return (
     <div className="space-y-6">
@@ -26,7 +36,7 @@ export default async function SchedulePage() {
         </p>
       </section>
 
-      <ScheduleView matches={schedule.matches} />
+      <ScheduleView matches={enriched} />
     </div>
   );
 }

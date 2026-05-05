@@ -5,6 +5,9 @@ import { Globe } from "lucide-react";
 import { teamFlag } from "@/lib/format";
 import { TIMEZONE_OPTIONS, type ScheduleMatch } from "@/lib/schedule";
 
+type WinProb = { home: number; draw: number; away: number };
+type EnrichedMatch = ScheduleMatch & { winProb: WinProb | null };
+
 const DEFAULT_TZ = "Europe/Berlin";
 const STORAGE_KEY = "wc2026.schedule.tz";
 const BROWSER_TZ_VALUE = "__browser__";
@@ -140,7 +143,27 @@ function TeamLabel({ name, align }: { name: string; align: TeamAlign }) {
   );
 }
 
-export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
+function ProbBar({ prob }: { prob: WinProb }) {
+  const home = Math.round(prob.home * 100);
+  const draw = Math.round(prob.draw * 100);
+  const away = Math.round(prob.away * 100);
+  return (
+    <div className="flex flex-col gap-0.5 w-20" title={`Home ${home}% · Draw ${draw}% · Away ${away}%`}>
+      <div className="flex h-1.5 rounded-sm overflow-hidden bg-muted">
+        <div className="bg-emerald-500" style={{ width: `${prob.home * 100}%` }} />
+        <div className="bg-amber-500" style={{ width: `${prob.draw * 100}%` }} />
+        <div className="bg-rose-500" style={{ width: `${prob.away * 100}%` }} />
+      </div>
+      <div className="flex justify-between text-[9px] text-muted-foreground tabular-nums leading-none">
+        <span>{home}</span>
+        <span>{draw}</span>
+        <span>{away}</span>
+      </div>
+    </div>
+  );
+}
+
+export function ScheduleView({ matches }: { matches: EnrichedMatch[] }) {
   const [tz, setTz] = useState<string>(DEFAULT_TZ);
   const [stage, setStage] = useState<string>("all");
   const [mounted, setMounted] = useState(false);
@@ -188,7 +211,7 @@ export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
   }, [filtered, mounted]);
 
   const grouped = useMemo(() => {
-    const buckets = new Map<string, ScheduleMatch[]>();
+    const buckets = new Map<string, EnrichedMatch[]>();
     for (const m of filtered) {
       const { dateKey } = inZone(m.kickoffUtc, tz);
       const arr = buckets.get(dateKey) ?? [];
@@ -273,7 +296,7 @@ export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
                 return (
                   <li
                     key={m.match}
-                    className={`relative flex items-center gap-2 sm:gap-3 px-3 py-2 text-sm hover:bg-muted/40 transition-colors ${
+                    className={`relative flex items-center gap-2 sm:grid sm:grid-cols-[auto_1fr_auto_1fr_5rem_12rem] sm:gap-3 sm:items-center px-3 py-2 text-sm hover:bg-muted/40 transition-colors ${
                       isNext
                         ? "before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-live"
                         : ""
@@ -289,23 +312,31 @@ export function ScheduleView({ matches }: { matches: ScheduleMatch[] }) {
                       </span>
                     </div>
 
-                    {/* Teams — stacked on mobile, horizontal on sm+ */}
-                    <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-center sm:gap-3">
-                      {/* Mobile: stacked rows. Desktop: home — – — away. */}
-                      <div className="min-w-0 sm:flex-1 sm:text-right">
+                    {/* Teams — stacked on mobile, individual grid cells on sm+ */}
+                    <div className="min-w-0 flex-1 flex flex-col sm:contents">
+                      <div className="min-w-0 sm:text-right">
                         <TeamLabel name={m.home} align="left-mobile-right-desktop" />
                       </div>
                       <span className="hidden sm:inline text-muted-foreground/60 text-xs">–</span>
-                      <div className="min-w-0 sm:flex-1">
+                      <div className="min-w-0">
                         <TeamLabel name={m.away} align="left" />
                       </div>
                     </div>
 
+                    {/* Win probabilities (1 / X / 2) */}
+                    <div className="hidden sm:flex justify-center">
+                      {m.winProb ? (
+                        <ProbBar prob={m.winProb} />
+                      ) : (
+                        <span className="text-[10px] text-muted-foreground/50 tabular-nums">—</span>
+                      )}
+                    </div>
+
                     {/* Right cluster — badge, optional live dot, optional city */}
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-2 shrink-0 sm:justify-end">
                       {isNext && <span className="live-dot" aria-label="Next match" />}
                       <span
-                        className="hidden md:inline text-xs text-muted-foreground truncate max-w-[8rem]"
+                        className="hidden md:inline-block text-xs text-muted-foreground truncate max-w-[8rem]"
                         title={m.venue}
                       >
                         {m.city}
