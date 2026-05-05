@@ -1,4 +1,4 @@
-import { Medal } from "lucide-react";
+import { ChevronDown, Info, Medal } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getResults, pct, teamFlag, topN } from "@/lib/data";
@@ -15,6 +15,16 @@ export default async function HomePage() {
   const topChampions = topN(r.probabilities.champion, 12, (v) => v);
   const podium = topChampions.slice(0, 3);
   const totalCovered = topChampions.reduce((acc, [, p]) => acc + p, 0);
+
+  // Data-driven copy for the explainer panel — keeps in sync with the model.
+  const [leader, leaderP] = podium[0];
+  const [second] = podium[1];
+  const [third] = podium[2];
+  const [fourth] = topChampions[3];
+  const [fifth] = topChampions[4];
+  const winsOut = Math.round(leaderP * r.n_simulations);
+  const lossesOut = r.n_simulations - winsOut;
+  const lossMultiplier = ((1 - leaderP) / leaderP).toFixed(1);
 
   return (
     <div className="space-y-10">
@@ -35,6 +45,52 @@ export default async function HomePage() {
           plus EA FC 25 squad strength.
         </p>
       </section>
+
+      {/* Explainer — collapsed by default; tap to learn how to read the numbers */}
+      <details className="group bg-card border border-border rounded-sm overflow-hidden">
+        <summary className="flex items-center justify-between gap-3 px-3 py-2.5 cursor-pointer list-none hover:bg-muted/40 transition-colors">
+          <span className="flex items-center gap-2 text-sm font-medium">
+            <Info className="w-4 h-4 text-muted-foreground shrink-0" />
+            What does &ldquo;{leader} {pct(leaderP, 1)}&rdquo; actually mean?
+          </span>
+          <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180 shrink-0" />
+        </summary>
+        <div className="px-4 py-4 text-sm leading-relaxed border-t border-border space-y-3 text-muted-foreground">
+          <p>
+            The numbers below are{" "}
+            <span className="text-foreground font-medium">chances, not predictions</span>. The model
+            plays the World Cup{" "}
+            <span className="font-mono text-foreground">
+              {r.n_simulations.toLocaleString()}
+            </span>{" "}
+            times. <span className="text-foreground font-medium">{leader}</span> wins about{" "}
+            <span className="font-mono text-foreground">{winsOut.toLocaleString()}</span> of those —
+            that&rsquo;s where {pct(leaderP, 1)} comes from. The other{" "}
+            <span className="font-mono text-foreground">~{lossesOut.toLocaleString()}</span> times,
+            somebody else lifts the trophy.
+          </p>
+          <p>
+            <span className="text-foreground font-medium">Why no team is above ~16%.</span>{" "}
+            Winning the World Cup means winning seven matches in a row. Even the best team
+            doesn&rsquo;t pull that off most of the time. A 48-team tournament is wide open by
+            design — in every modern World Cup the favorite has sat between 15% and 25%.
+          </p>
+          <p>
+            <span className="text-foreground font-medium">How to read it.</span>{" "}
+            {leader} at {pct(leaderP, 1)} is the model&rsquo;s top pick — but it&rsquo;s also
+            saying it&rsquo;s about{" "}
+            <span className="font-mono text-foreground">{lossMultiplier}×</span> more likely that
+            someone else wins. The interesting part is the order and the gaps: {leader} ≈ {second}{" "}
+            ≈ {third} are basically tied at the top, then a step down to {fourth} and {fifth}.
+          </p>
+          <p>
+            <span className="text-foreground font-medium">What&rsquo;s not in the model.</span>{" "}
+            It doesn&rsquo;t know about injuries, suspensions, or the final squads (those land in
+            late May). It uses a century of match results, current Elo ratings, and player ratings
+            from EA FC 25.
+          </p>
+        </div>
+      </details>
 
       {/* Podium — trophy plinth: 2nd left, 1st center elevated, 3rd right */}
       {(() => {
