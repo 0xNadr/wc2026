@@ -4,13 +4,15 @@ COPY web/package.json web/package-lock.json ./
 RUN npm ci
 COPY web/ ./
 # Replace symlinks with real files for the build
-RUN rm -f public/results.json public/matchups.json public/team_meta.json public/golden_boot.json public/squads.json public/report.pdf
+RUN rm -f public/results.json public/matchups.json public/team_meta.json public/golden_boot.json public/squads.json public/report.pdf public/halflife_sweep.json public/home_advantage.json
 RUN rm -rf public/eda && mkdir -p public/eda
 COPY output/results.json ./public/results.json
 COPY output/matchups.json ./public/matchups.json
 COPY output/team_meta.json ./public/team_meta.json
 COPY output/golden_boot.json ./public/golden_boot.json
 COPY output/squads.json ./public/squads.json
+COPY output/halflife_sweep.json ./public/halflife_sweep.json
+COPY output/home_advantage.json ./public/home_advantage.json
 COPY output/eda/ ./public/eda/
 COPY output/report.pdf ./public/report.pdf
 RUN npm run build
