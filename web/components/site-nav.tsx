@@ -33,75 +33,95 @@ export function SiteNav() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-border/60 bg-background/80 backdrop-blur sticky top-0 z-20">
-      <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-2">
-        <Link
-          href="/"
-          className="font-semibold tracking-tight text-sm sm:text-base shrink-0 flex items-center gap-2"
-          onClick={() => setOpen(false)}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/icon.svg"
-            alt=""
-            width={28}
-            height={28}
-            className="w-7 h-7 rounded-md"
-          />
-          WC 2026 Forecaster
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex gap-4 text-sm text-muted-foreground">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${
-                pathname === l.href ? "text-foreground font-medium" : ""
-              }`}
-            >
-              {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right cluster: theme toggle + (mobile) menu button */}
-        <div className="flex items-center gap-1">
-          <ThemeToggle />
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+    <header className="sticky top-0 z-20">
+      {/* Top bar — dark charcoal, edge-to-edge */}
+      <div className="bg-header text-header-foreground border-b border-black/30">
+        <div className="mx-auto max-w-6xl px-4 h-12 flex items-center justify-between gap-2">
+          <Link
+            href="/"
+            className="font-bold tracking-tight text-sm sm:text-base shrink-0 flex items-center gap-2"
+            onClick={() => setOpen(false)}
           >
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/icon.svg"
+              alt=""
+              width={24}
+              height={24}
+              className="w-6 h-6 rounded-sm"
+            />
+            <span>
+              WC<span className="text-brand">2026</span>
+            </span>
+            <span className="hidden sm:inline text-header-muted font-normal">
+              Forecaster
+            </span>
+          </Link>
+
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-sm text-header-foreground hover:bg-white/10 transition-colors"
+            >
+              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+      </div>
+
+      {/* Secondary nav — light strip with yellow underline on active */}
+      <div className="hidden lg:block bg-card border-b border-border">
+        <nav className="mx-auto max-w-6xl px-4 flex gap-0 text-sm overflow-x-auto">
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`relative inline-flex items-center gap-1 px-3 h-10 whitespace-nowrap transition-colors ${
+                  active
+                    ? "text-foreground font-semibold"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
+                {l.label}
+                {active && (
+                  <span className="absolute left-0 right-0 bottom-0 h-[3px] bg-brand" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
 
       {/* Mobile menu panel */}
       {open && (
-        <nav className="lg:hidden border-t border-border/60 bg-background">
+        <nav className="lg:hidden bg-card border-b border-border">
           <ul className="mx-auto max-w-6xl px-2 py-2 flex flex-col">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm hover:bg-muted/60 transition-colors ${
-                    pathname === l.href
-                      ? "text-foreground font-medium bg-muted/40"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {links.map((l) => {
+              const active = pathname === l.href;
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center gap-1.5 px-3 py-2 text-sm border-l-[3px] transition-colors ${
+                      active
+                        ? "text-foreground font-semibold border-brand bg-muted/40"
+                        : "text-muted-foreground hover:text-foreground border-transparent hover:bg-muted/40"
+                    }`}
+                  >
+                    {l.Icon && <l.Icon className="w-3.5 h-3.5" />}
+                    {l.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       )}
