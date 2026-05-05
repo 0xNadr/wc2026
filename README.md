@@ -110,7 +110,9 @@ site documents the rest.
 - 49,256 international match results 1872 -> 2026-03-31 (martj42/international_results)
 - Per-goal records with scorer, minute, penalty/own-goal flags (same repo)
 - Live Elo ratings for the 48 qualified teams (eloratings.net)
-- EA FC 25 player ratings for 18,205 footballers (Kaggle)
+- EA FC 25 player ratings for 18,205 footballers (Kaggle); production prior
+- Transfermarkt market values (weekly snapshot); robustness prior, available via
+  `python scripts/train.py --squad-source tm`
 - Official FIFA Final Draw (5 December 2025, Washington DC)
 
 ## Contributing

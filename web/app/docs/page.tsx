@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { CitationBlock, DocsScrollTracker } from "@/components/docs-engagement";
 import { HomeAdvantageChart } from "@/components/home-advantage-chart";
 import { HalfLifeChart } from "@/components/halflife-chart";
+import { SquadAblationChart } from "@/components/squad-ablation-chart";
+import { SquadSourceComparison } from "@/components/squad-source-comparison";
 
 export const metadata = {
   title: "Methodology · WC 2026 Forecaster",
@@ -326,6 +328,34 @@ export default function DocsPage() {
         </CardHeader>
         <CardContent>
           <HalfLifeChart />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-2">
+            <span>EA FC squad-strength contribution (ablation)</span>
+            <Badge variant="outline" className="text-[10px] gap-1">
+              ablation
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <SquadAblationChart />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between flex-wrap gap-2">
+            <span>Squad-strength source: EA FC 25 vs Transfermarkt</span>
+            <Badge variant="outline" className="text-[10px] gap-1">
+              comparison
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <SquadSourceComparison />
         </CardContent>
       </Card>
 

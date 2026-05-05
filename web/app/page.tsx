@@ -262,6 +262,8 @@ export default async function HomePage() {
           <span className="font-mono font-medium">55 to 58%</span>, in line with FiveThirtyEight SPI
           and bookmaker-grade systems. Fitted on ~31k international matches since 1990 with
           time-decay (4-yr half-life, cross-validated) and tournament-importance weighting.
+          Squad-strength prior validated against weekly-refreshed Transfermarkt market values
+          (Spearman 0.96, max champion-% shift 0.65pp).
         </p>
       </section>
     </div>

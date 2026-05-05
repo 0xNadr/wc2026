@@ -6,6 +6,7 @@ opponents ~7×s the training data and informs the qualified teams' strength
 through transitive opponents (e.g. France beating Albania tells us about
 France even though Albania isn't at the WC).
 """
+import argparse
 import sys
 from pathlib import Path
 
@@ -15,9 +16,12 @@ from wc2026.config import TOURNAMENT_START
 from wc2026.data.elo import fetch_elo_ratings
 from wc2026.data.matches import load_matches
 from wc2026.data.squads import compute_squad_strength
+from wc2026.data.squads_tm import compute_squad_strength_tm
 from wc2026.data.tournament import QUALIFIED_TEAMS
 from wc2026.features import build_training_frame
 from wc2026.model.bayesian import fit_model, save_trace
+
+SQUAD_SOURCES = {"ea": compute_squad_strength, "tm": compute_squad_strength_tm}
 
 
 def build_universe(min_year: int) -> list[str]:
@@ -32,7 +36,7 @@ def build_universe(min_year: int) -> list[str]:
 
 
 def main(min_year: int = 1990, draws: int = 2000, tune: int = 2000,
-         chains: int = 4, cores: int = 4) -> None:
+         chains: int = 4, cores: int = 4, squad_source: str = "ea") -> None:
     universe = build_universe(min_year)
     print(f"Universe: {len(universe)} teams (48 qualified + "
           f"{len(universe) - len(QUALIFIED_TEAMS)} neighbours)")
@@ -47,16 +51,27 @@ def main(min_year: int = 1990, draws: int = 2000, tune: int = 2000,
         print(f"⚠ Elo unavailable ({e}); using neutral priors")
 
     try:
-        squad = compute_squad_strength()
+        squad = SQUAD_SOURCES[squad_source]()
+        print(f"✓ Squad source: {squad_source} ({len(squad)} nations)")
     except Exception as e:
         print(f"⚠ Squad data unavailable ({e}); using Elo-only priors")
         squad = None
 
     trace = fit_model(df, universe, elo, squad,
                       draws=draws, tune=tune, chains=chains, cores=cores)
-    path = save_trace(trace, name="dixon_coles")
+    path = save_trace(trace, name=f"dixon_coles_{squad_source}")
     print(f"✓ Trace saved to {path}")
 
 
 if __name__ == "__main__":
-    main()
+    p = argparse.ArgumentParser()
+    p.add_argument("--squad-source", choices=list(SQUAD_SOURCES), default="ea",
+                   help="ea = EA FC 25 ratings (default), tm = Transfermarkt market values")
+    p.add_argument("--min-year", type=int, default=1990)
+    p.add_argument("--draws", type=int, default=2000)
+    p.add_argument("--tune", type=int, default=2000)
+    p.add_argument("--chains", type=int, default=4)
+    p.add_argument("--cores", type=int, default=4)
+    args = p.parse_args()
+    main(min_year=args.min_year, draws=args.draws, tune=args.tune,
+         chains=args.chains, cores=args.cores, squad_source=args.squad_source)
