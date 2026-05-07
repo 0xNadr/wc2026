@@ -59,10 +59,20 @@ export default async function BracketPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {STAGES.map((s) => {
           const probs = r.probabilities[s.key];
-          const ranked = Object.entries(probs)
+          let ranked = Object.entries(probs)
             .sort((a, b) => b[1] - a[1])
             .slice(0, s.n)
             .filter(([, p]) => p > 0.001);
+          if (s.key === "round_of_32") {
+            const bracketTeams = new Set<string>();
+            for (const m of byStage.R32 ?? []) {
+              bracketTeams.add(m.team_a);
+              bracketTeams.add(m.team_b);
+            }
+            ranked = Object.entries(probs)
+              .filter(([t]) => bracketTeams.has(t))
+              .sort((a, b) => b[1] - a[1]);
+          }
           return (
             <Card key={s.key}>
               <CardHeader>
