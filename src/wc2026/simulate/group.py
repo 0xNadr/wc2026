@@ -26,11 +26,17 @@ def simulate_group(
     fifa_rank: dict[int, int],
     rng: np.random.Generator,
     match_type_offset: float = 0.0,
+    known: dict[frozenset, dict[int, int]] | None = None,
 ) -> GroupOutcome:
     """Play all 6 group fixtures, return finishing order + per-team stats.
 
     Group games are treated as neutral; host-nation venue boosts (if any) are
     applied at the tournament-driver level, not here.
+
+    `known` pins already-played fixtures to their real scores: it maps the
+    frozenset of the two global team indices to {team_idx: goals}. Any pair
+    found there uses the recorded result instead of being sampled, so the
+    forecast is conditioned on results so far.
 
     Tiebreak chain: pts → GD → GF → H2H pts → H2H GD → H2H GF →
     FIFA ranking → drawing of lots.
@@ -46,10 +52,14 @@ def simulate_group(
     for i in range(n):
         for j in range(i + 1, n):
             home, away = team_indices[i], team_indices[j]
-            gh, ga_ = sample_goals(home, away, att, defe, intercept, home_adv, rho,
-                                   is_neutral=True, rng=rng,
-                                   match_type_offset=match_type_offset)
-            gh, ga_ = int(gh), int(ga_)
+            pair = known.get(frozenset((home, away))) if known else None
+            if pair is not None:
+                gh, ga_ = pair[home], pair[away]
+            else:
+                gh, ga_ = sample_goals(home, away, att, defe, intercept, home_adv, rho,
+                                       is_neutral=True, rng=rng,
+                                       match_type_offset=match_type_offset)
+                gh, ga_ = int(gh), int(ga_)
             gf[i] += gh; ga[i] += ga_
             gf[j] += ga_; ga[j] += gh
             if gh > ga_:

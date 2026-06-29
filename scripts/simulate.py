@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from wc2026.aggregate import aggregate, sample_alternate_realities, write_results
 from wc2026.config import N_SIMULATIONS, RANDOM_SEED
 from wc2026.data.elo import fetch_elo_ratings
-from wc2026.data.tournament import QUALIFIED_TEAMS
+from wc2026.data.tournament import ACTUAL_R32, QUALIFIED_TEAMS, load_known_results
 from wc2026.draw import get_groups
 from wc2026.model.bayesian import load_trace
 from wc2026.simulate.tournament import simulate_tournament
@@ -38,6 +38,28 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
 
     fifa_rank = {team_to_idx[t]: rank for rank, t in
                  enumerate(sorted(teams, key=lambda x: -rankings.get(x, 1500.0)), start=1)}
+
+    # Condition the forecast on already-played games: pin each to its real
+    # outcome so only the unplayed remainder is sampled across the 50k rollouts.
+    known_group: dict[frozenset, dict[int, int]] = {}
+    known_ko: dict[frozenset, int] = {}
+    for m in load_known_results():
+        if m["stage"].startswith("Group"):
+            hi, ai = team_to_idx[m["home"]], team_to_idx[m["away"]]
+            known_group[frozenset((hi, ai))] = {hi: m["homeGoals"], ai: m["awayGoals"]}
+        else:
+            # Knockout: pin the team that advanced (explicit winner if the tie
+            # went to ET/penalties, else decided by the 90-minute score).
+            hi, ai = team_to_idx[m["home"]], team_to_idx[m["away"]]
+            winner = m.get("winner") or (m["home"] if m["homeGoals"] > m["awayGoals"] else m["away"])
+            known_ko[frozenset((hi, ai))] = team_to_idx[winner]
+
+    # Once the group stage is over the bracket is fixed — use the real pairings.
+    known_r32 = None
+    if ACTUAL_R32 is not None:
+        known_r32 = [(team_to_idx[h], team_to_idx[a]) for h, a in ACTUAL_R32]
+    print(f"Conditioning on {len(known_group)} group + {len(known_ko)} knockout match(es)"
+          f"{'; using real R32 bracket' if known_r32 else ''}")
 
     trace = load_trace("dixon_coles")
     post = trace.posterior
@@ -89,12 +111,19 @@ def main(n_sims: int = N_SIMULATIONS) -> None:
             groups_by_idx, att, defe, intercept, home_adv, rho, fifa_rank, rng,
             wc_group_offset=float(wc_group_offsets[s]),
             wc_knockout_offset=float(wc_knockout_offsets[s]),
+            known_group=known_group,
+            known_r32=known_r32,
+            known_ko=known_ko,
         )
         results.append(result)
 
     payload = aggregate(results, teams)
     payload["groups"] = groups_by_letter
     payload["alternate_realities"] = sample_alternate_realities(results, teams, k=100)
+    # Publish the real knockout bracket (when known) so the web bracket page
+    # renders the actual pairings instead of re-deriving a synthetic one.
+    if ACTUAL_R32 is not None:
+        payload["r32_bracket"] = [list(pair) for pair in ACTUAL_R32]
     out = write_results(payload)
     print(f"✓ Wrote {out} ({n_sims:,} simulations)")
     top10 = sorted(payload["probabilities"]["champion"].items(), key=lambda x: -x[1])[:10]

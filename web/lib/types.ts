@@ -27,6 +27,9 @@ export type Results = {
   probabilities: StageProbabilities;
   groups: Record<string, string[]>;
   alternate_realities: AlternateReality[];
+  // Real knockout bracket in sim order (consecutive pairs meet in the next
+  // round). Present once the group stage is complete; absent pre-knockouts.
+  r32_bracket?: [string, string][];
 };
 
 export const STAGES = [

@@ -50,6 +50,12 @@ function lookupCell(m: Matchups, a: string, b: string): MatchupCell {
 }
 
 export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
+  // Fast path: once the group stage is complete the real bracket is published in
+  // results.json — use it directly instead of re-deriving a synthetic one.
+  if (r.r32_bracket && r.r32_bracket.length > 0) {
+    return walkBracket(r.r32_bracket.map(([a, b]) => [a, b] as [string, string]), mu);
+  }
+
   // 1. Group winners + runners-up = single canonical pick per slot
   const groupWinner: Record<string, string> = {};
   const groupRunner: Record<string, string> = {};
@@ -129,7 +135,14 @@ export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
     return rank === "1" ? groupWinner[group] : groupRunner[group];
   };
 
-  let teams = R32_SLOTS.map(([a, b]) => [resolveSlot(a), resolveSlot(b)] as [string, string]);
+  const seed = R32_SLOTS.map(([a, b]) => [resolveSlot(a), resolveSlot(b)] as [string, string]);
+  return walkBracket(seed, mu);
+}
+
+// Walk the bracket from a seed of 16 R32 pairings, advancing the model-favored
+// team at each match. Consecutive pairs meet in the next round.
+function walkBracket(seed: [string, string][], mu: Matchups): BracketMatch[] {
+  let teams = seed;
   const matches: BracketMatch[] = [];
   const stages: BracketMatch["stage"][] = ["R32", "R16", "QF", "SF", "Final"];
 

@@ -125,22 +125,24 @@ ROWS = [
     (70, "2026-06-27 19:30", "Atlanta Stadium", "Group K", "DR Congo", "Uzbekistan"),
     (71, "2026-06-27 21:00", "Kansas City Stadium", "Group J", "Algeria", "Austria"),
     (72, "2026-06-27 21:00", "Dallas Stadium", "Group J", "Jordan", "Argentina"),
-    (73, "2026-06-28 12:00", "Los Angeles Stadium", "Round of 32", "Winner A", "Runner-up B"),
-    (74, "2026-06-29 16:30", "Boston Stadium", "Round of 32", "Winner E", "3rd A/B/C/D/F"),
-    (75, "2026-06-29 19:00", "Monterrey Stadium", "Round of 32", "Winner F", "Runner-up C"),
-    (76, "2026-06-29 12:00", "Houston Stadium", "Round of 32", "Winner C", "Runner-up F"),
-    (77, "2026-06-30 12:00", "Dallas Stadium", "Round of 32", "Runner-up E", "Runner-up I"),
-    (78, "2026-06-30 17:00", "New York/New Jersey Stadium", "Round of 32", "Winner I", "3rd C/D/F/G/H"),
-    (79, "2026-06-30 19:00", "Mexico City Stadium", "Round of 32", "Winner A", "3rd C/E/F/H/I"),
-    (80, "2026-07-01 12:00", "Atlanta Stadium", "Round of 32", "Winner L", "3rd E/H/I/J/K"),
-    (81, "2026-07-01 13:00", "Seattle Stadium", "Round of 32", "Winner G", "3rd A/E/H/I/J"),
-    (82, "2026-07-01 17:00", "San Francisco Bay Area Stadium", "Round of 32", "Winner D", "3rd B/E/F/I/J"),
-    (83, "2026-07-02 12:00", "Los Angeles Stadium", "Round of 32", "Winner H", "Runner-up J"),
-    (84, "2026-07-02 19:00", "Toronto Stadium", "Round of 32", "Runner-up K", "Runner-up L"),
-    (85, "2026-07-02 20:00", "BC Place Vancouver", "Round of 32", "Winner B", "3rd E/F/G/I/J"),
-    (86, "2026-07-03 13:00", "Dallas Stadium", "Round of 32", "Runner-up D", "Runner-up G"),
-    (87, "2026-07-03 18:00", "Miami Stadium", "Round of 32", "Winner J", "Runner-up H"),
-    (88, "2026-07-03 20:30", "Kansas City Stadium", "Round of 32", "Winner K", "3rd D/E/I/J/L"),
+    # Round-of-32 teams resolved from final group standings (real bracket). Dates
+    # are official; intra-day venue/time assignments retain pre-tournament values.
+    (73, "2026-06-28 12:00", "Los Angeles Stadium", "Round of 32", "South Africa", "Canada"),
+    (74, "2026-06-29 16:30", "Boston Stadium", "Round of 32", "Germany", "Paraguay"),
+    (75, "2026-06-29 19:00", "Monterrey Stadium", "Round of 32", "Netherlands", "Morocco"),
+    (76, "2026-06-29 12:00", "Houston Stadium", "Round of 32", "Brazil", "Japan"),
+    (77, "2026-06-30 12:00", "Dallas Stadium", "Round of 32", "France", "Sweden"),
+    (78, "2026-06-30 17:00", "New York/New Jersey Stadium", "Round of 32", "Ivory Coast", "Norway"),
+    (79, "2026-06-30 19:00", "Mexico City Stadium", "Round of 32", "Mexico", "Ecuador"),
+    (80, "2026-07-01 12:00", "Atlanta Stadium", "Round of 32", "England", "DR Congo"),
+    (81, "2026-07-01 13:00", "Seattle Stadium", "Round of 32", "United States", "Bosnia and Herzegovina"),
+    (82, "2026-07-01 17:00", "San Francisco Bay Area Stadium", "Round of 32", "Belgium", "Senegal"),
+    (83, "2026-07-02 12:00", "Los Angeles Stadium", "Round of 32", "Portugal", "Croatia"),
+    (84, "2026-07-02 19:00", "Toronto Stadium", "Round of 32", "Spain", "Austria"),
+    (85, "2026-07-02 20:00", "BC Place Vancouver", "Round of 32", "Switzerland", "Algeria"),
+    (86, "2026-07-03 13:00", "Dallas Stadium", "Round of 32", "Argentina", "Cape Verde"),
+    (87, "2026-07-03 18:00", "Miami Stadium", "Round of 32", "Colombia", "Ghana"),
+    (88, "2026-07-03 20:30", "Kansas City Stadium", "Round of 32", "Australia", "Egypt"),
     (89, "2026-07-04 12:00", "Houston Stadium", "Round of 16", "Winner 73", "Winner 75"),
     (90, "2026-07-04 17:00", "Philadelphia Stadium", "Round of 16", "Winner 74", "Winner 77"),
     (91, "2026-07-05 16:00", "New York/New Jersey Stadium", "Round of 16", "Winner 76", "Winner 78"),
@@ -166,6 +168,13 @@ def main() -> None:
     results = json.loads((web / "public" / "results.json").read_text())
     team_to_group = {t: letter for letter, teams in results["groups"].items() for t in teams}
 
+    # Played-match scores share the simulator's single source of truth.
+    known_path = web.parent / "data" / "known_results.json"
+    known = {}
+    if known_path.exists():
+        for m in json.loads(known_path.read_text())["matches"]:
+            known[m["match"]] = (m["homeGoals"], m["awayGoals"])
+
     matches = []
     for num, local_str, venue, stage, home, away in ROWS:
         tz = VENUE_TZ[venue]
@@ -176,6 +185,7 @@ def main() -> None:
             group = stage.split(" ", 1)[1]
         else:
             group = None
+        score = known.get(num)
         matches.append({
             "match": num,
             "stage": stage,
@@ -188,6 +198,9 @@ def main() -> None:
             "away": away,
             "homeGroup": team_to_group.get(home),
             "awayGroup": team_to_group.get(away),
+            "played": score is not None,
+            "homeGoals": score[0] if score else None,
+            "awayGoals": score[1] if score else None,
         })
 
     out = {

@@ -62,6 +62,9 @@ def simulate_tournament(
     rng: np.random.Generator,
     wc_group_offset: float = 0.0,
     wc_knockout_offset: float = 0.0,
+    known_group: dict[frozenset, dict[int, int]] | None = None,
+    known_r32: list[tuple[int, int]] | None = None,
+    known_ko: dict[frozenset, int] | None = None,
 ) -> TournamentResult:
     group_finish: dict[str, list[int]] = {}
     third_pts: dict[str, int] = {}
@@ -71,7 +74,8 @@ def simulate_tournament(
     for letter, team_indices in groups.items():
         outcome = simulate_group(team_indices, att, defe, intercept, home_adv, rho,
                                  fifa_rank, rng,
-                                 match_type_offset=wc_group_offset)
+                                 match_type_offset=wc_group_offset,
+                                 known=known_group)
         group_finish[letter] = outcome.finish
         third_idx = outcome.finish[2]
         third_pts[letter] = outcome.pts[third_idx]
@@ -81,14 +85,16 @@ def simulate_tournament(
     advancing_thirds = _rank_thirds(group_finish, third_pts, third_gd, third_gf,
                                     fifa_rank, rng)
 
-    pairings = _build_r32_pairings(group_finish, advancing_thirds)
+    # Once the real bracket is known (group stage complete) use it directly;
+    # otherwise build a probabilistic bracket from the simulated standings.
+    pairings = known_r32 if known_r32 is not None else _build_r32_pairings(group_finish, advancing_thirds)
     ko = wc_knockout_offset
-    r32 = play_round(pairings, att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
-    r16 = play_round(list(zip(r32[0::2], r32[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
-    qf = play_round(list(zip(r16[0::2], r16[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
-    sf = play_round(list(zip(qf[0::2], qf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)
+    r32 = play_round(pairings, att, defe, intercept, home_adv, rho, rng, match_type_offset=ko, known=known_ko)
+    r16 = play_round(list(zip(r32[0::2], r32[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko, known=known_ko)
+    qf = play_round(list(zip(r16[0::2], r16[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko, known=known_ko)
+    sf = play_round(list(zip(qf[0::2], qf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko, known=known_ko)
     finalists = sf
-    champ = play_round(list(zip(sf[0::2], sf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko)[0]
+    champ = play_round(list(zip(sf[0::2], sf[1::2])), att, defe, intercept, home_adv, rho, rng, match_type_offset=ko, known=known_ko)[0]
     runner_up = finalists[0] if finalists[1] == champ else finalists[1]
 
     return TournamentResult(

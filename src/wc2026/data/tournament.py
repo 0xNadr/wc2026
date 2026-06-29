@@ -5,11 +5,28 @@ Round of 32. Single-elimination from R32 to Final (5 rounds, 32 knockout matches
 """
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
+from pathlib import Path
 
-# NOTE: the 48-team qualified list below is the project's best reconstruction
-# from public sources. Verify against the official FIFA page before running
-# the production simulation; swap any incorrect entries here.
+# Single source of truth for already-played match results (also read by the web
+# schedule build). The simulator fixes these games to their real scores and only
+# samples the unplayed remainder, so the forecast is conditioned on results so far.
+_KNOWN_RESULTS_PATH = Path(__file__).resolve().parents[3] / "data" / "known_results.json"
+
+
+def load_known_results() -> list[dict]:
+    """Return played matches as a list of dicts (match, stage, home, away,
+    homeGoals, awayGoals). Empty list if the data file is absent."""
+    if not _KNOWN_RESULTS_PATH.exists():
+        return []
+    return json.loads(_KNOWN_RESULTS_PATH.read_text(encoding="utf-8")).get("matches", [])
+
+# The 48-team qualified list below is final and verified against the official
+# FIFA results (qualification completed with the March 2026 UEFA and
+# intercontinental play-offs). The six play-off slots resolved to: DR Congo and
+# Iraq (intercontinental), plus the four UEFA play-off path winners — all of
+# which are reflected here and in draw.ACTUAL_DRAW. Last verified 2026-06-22.
 QUALIFIED_TEAMS: dict[str, dict] = {
     # Hosts (CONCACAF, 3 slots auto)
     "United States":   {"confederation": "CONCACAF", "host": True},
@@ -146,6 +163,33 @@ assert len(_third_slots) == 8, f"need 8 third slots, got {len(_third_slots)}"
 # assigns thirds to compatible slots in group-letter order. Full table is
 # 495 entries (C(12,8)) — TODO: encode verbatim from FIFA spec before launch.
 THIRDS_LOOKUP: dict[tuple[str, ...], dict[str, str]] = {}
+
+
+# Once the group stage is complete the Round-of-32 bracket is fully determined,
+# so we stop relying on R32_SLOTS / best_thirds_assignment (a scaffold) and use
+# the real FIFA pairings. Order matters: it is the simulator's bracket order, so
+# consecutive pairs meet in the Round of 16 — i.e. winner(0) plays winner(1),
+# winner(2) plays winner(3), and so on up the tree. Set to None pre-knockouts.
+# Verified against the official 2026 knockout bracket (resolved from final group
+# standings). When set, simulate_tournament uses this instead of R32_SLOTS.
+ACTUAL_R32: list[tuple[str, str]] | None = [
+    ("Germany",       "Paraguay"),               # M74: Winner E vs 3rd D
+    ("France",        "Sweden"),                 # M77: Winner I vs 3rd F
+    ("South Africa",  "Canada"),                 # M73: Runner-up A vs Runner-up B
+    ("Netherlands",   "Morocco"),                # M75: Winner F vs Runner-up C
+    ("Portugal",      "Croatia"),                # M83: Runner-up K vs Runner-up L
+    ("Spain",         "Austria"),                # M84: Winner H vs Runner-up J
+    ("United States", "Bosnia and Herzegovina"), # M81: Winner D vs 3rd B
+    ("Belgium",       "Senegal"),                # M82: Winner G vs 3rd I
+    ("Brazil",        "Japan"),                  # M76: Winner C vs Runner-up F
+    ("Ivory Coast",   "Norway"),                 # M78: Runner-up E vs Runner-up I
+    ("Mexico",        "Ecuador"),                # M79: Winner A vs 3rd E
+    ("England",       "DR Congo"),               # M80: Winner L vs 3rd K
+    ("Argentina",     "Cape Verde"),             # M86: Winner J vs Runner-up H
+    ("Australia",     "Egypt"),                  # M88: Runner-up D vs Runner-up G
+    ("Switzerland",   "Algeria"),                # M85: Winner B vs 3rd J
+    ("Colombia",      "Ghana"),                  # M87: Winner K vs 3rd L
+]
 
 
 def best_thirds_assignment(qualifying_thirds: list[str]) -> dict[str, str]:

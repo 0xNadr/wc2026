@@ -10,6 +10,9 @@ export type ScheduleMatch = {
   away: string;
   homeGroup: string | null;
   awayGroup: string | null;
+  played?: boolean;
+  homeGoals?: number | null;
+  awayGoals?: number | null;
 };
 
 export type Schedule = {

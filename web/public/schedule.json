@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T08:04:21Z",
+  "generatedAt": "2026-06-29T11:34:52Z",
   "matches": [
     {
       "match": 1,
@@ -12,7 +12,10 @@
       "home": "Mexico",
       "away": "South Africa",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0
     },
     {
       "match": 2,
@@ -25,7 +28,10 @@
       "home": "South Korea",
       "away": "Czech Republic",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "match": 3,
@@ -38,7 +44,10 @@
       "home": "Canada",
       "away": "Bosnia and Herzegovina",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 4,
@@ -51,7 +60,10 @@
       "home": "United States",
       "away": "Paraguay",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 4,
+      "awayGoals": 1
     },
     {
       "match": 5,
@@ -64,7 +76,10 @@
       "home": "Qatar",
       "away": "Switzerland",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 6,
@@ -77,7 +92,10 @@
       "home": "Brazil",
       "away": "Morocco",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 7,
@@ -90,7 +108,10 @@
       "home": "Haiti",
       "away": "Scotland",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 8,
@@ -103,7 +124,10 @@
       "home": "Australia",
       "away": "Turkey",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0
     },
     {
       "match": 9,
@@ -116,7 +140,10 @@
       "home": "Germany",
       "away": "Curaçao",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 7,
+      "awayGoals": 1
     },
     {
       "match": 10,
@@ -129,7 +156,10 @@
       "home": "Netherlands",
       "away": "Japan",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 2
     },
     {
       "match": 11,
@@ -142,7 +172,10 @@
       "home": "Ivory Coast",
       "away": "Ecuador",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "match": 12,
@@ -155,7 +188,10 @@
       "home": "Sweden",
       "away": "Tunisia",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 5,
+      "awayGoals": 1
     },
     {
       "match": 13,
@@ -168,7 +204,10 @@
       "home": "Spain",
       "away": "Cape Verde",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 14,
@@ -181,7 +220,10 @@
       "home": "Belgium",
       "away": "Egypt",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 15,
@@ -194,7 +236,10 @@
       "home": "Saudi Arabia",
       "away": "Uruguay",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 16,
@@ -207,7 +252,10 @@
       "home": "Iran",
       "away": "New Zealand",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 2
     },
     {
       "match": 17,
@@ -220,7 +268,10 @@
       "home": "France",
       "away": "Senegal",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 1
     },
     {
       "match": 18,
@@ -233,7 +284,10 @@
       "home": "Iraq",
       "away": "Norway",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 4
     },
     {
       "match": 19,
@@ -246,7 +300,10 @@
       "home": "Argentina",
       "away": "Algeria",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "match": 20,
@@ -259,7 +316,10 @@
       "home": "Austria",
       "away": "Jordan",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 1
     },
     {
       "match": 21,
@@ -272,7 +332,10 @@
       "home": "Portugal",
       "away": "DR Congo",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 22,
@@ -285,7 +348,10 @@
       "home": "England",
       "away": "Croatia",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 4,
+      "awayGoals": 2
     },
     {
       "match": 23,
@@ -298,7 +364,10 @@
       "home": "Ghana",
       "away": "Panama",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "match": 24,
@@ -311,7 +380,10 @@
       "home": "Uzbekistan",
       "away": "Colombia",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "match": 25,
@@ -324,7 +396,10 @@
       "home": "Czech Republic",
       "away": "South Africa",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 26,
@@ -337,7 +412,10 @@
       "home": "Switzerland",
       "away": "Bosnia and Herzegovina",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 4,
+      "awayGoals": 1
     },
     {
       "match": 27,
@@ -350,7 +428,10 @@
       "home": "Canada",
       "away": "Qatar",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 6,
+      "awayGoals": 0
     },
     {
       "match": 28,
@@ -363,7 +444,10 @@
       "home": "Mexico",
       "away": "South Korea",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "match": 29,
@@ -376,7 +460,10 @@
       "home": "United States",
       "away": "Australia",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0
     },
     {
       "match": 30,
@@ -389,7 +476,10 @@
       "home": "Scotland",
       "away": "Morocco",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 31,
@@ -402,7 +492,10 @@
       "home": "Turkey",
       "away": "Paraguay",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 32,
@@ -415,7 +508,10 @@
       "home": "Brazil",
       "away": "Haiti",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "match": 33,
@@ -428,7 +524,10 @@
       "home": "Netherlands",
       "away": "Sweden",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 5,
+      "awayGoals": 1
     },
     {
       "match": 34,
@@ -441,7 +540,10 @@
       "home": "Germany",
       "away": "Ivory Coast",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "match": 35,
@@ -454,7 +556,10 @@
       "home": "Ecuador",
       "away": "Curaçao",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 36,
@@ -467,7 +572,10 @@
       "home": "Tunisia",
       "away": "Japan",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 4
     },
     {
       "match": 37,
@@ -480,7 +588,10 @@
       "home": "Spain",
       "away": "Saudi Arabia",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 4,
+      "awayGoals": 0
     },
     {
       "match": 38,
@@ -493,7 +604,10 @@
       "home": "Belgium",
       "away": "Iran",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 39,
@@ -506,7 +620,10 @@
       "home": "Uruguay",
       "away": "Cape Verde",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 2
     },
     {
       "match": 40,
@@ -519,7 +636,10 @@
       "home": "New Zealand",
       "away": "Egypt",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "match": 41,
@@ -532,7 +652,10 @@
       "home": "Argentina",
       "away": "Austria",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0
     },
     {
       "match": 42,
@@ -545,7 +668,10 @@
       "home": "France",
       "away": "Iraq",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "match": 43,
@@ -558,7 +684,10 @@
       "home": "Norway",
       "away": "Senegal",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 2
     },
     {
       "match": 44,
@@ -571,7 +700,10 @@
       "home": "Jordan",
       "away": "Algeria",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     {
       "match": 45,
@@ -584,7 +716,10 @@
       "home": "Portugal",
       "away": "Uzbekistan",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 5,
+      "awayGoals": 0
     },
     {
       "match": 46,
@@ -597,7 +732,10 @@
       "home": "England",
       "away": "Ghana",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 47,
@@ -610,7 +748,10 @@
       "home": "Panama",
       "away": "Croatia",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 48,
@@ -623,7 +764,10 @@
       "home": "Colombia",
       "away": "DR Congo",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "match": 49,
@@ -636,7 +780,10 @@
       "home": "Switzerland",
       "away": "Canada",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "match": 50,
@@ -649,7 +796,10 @@
       "home": "Bosnia and Herzegovina",
       "away": "Qatar",
       "homeGroup": "B",
-      "awayGroup": "B"
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 1
     },
     {
       "match": 51,
@@ -662,7 +812,10 @@
       "home": "Scotland",
       "away": "Brazil",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "match": 52,
@@ -675,7 +828,10 @@
       "home": "Morocco",
       "away": "Haiti",
       "homeGroup": "C",
-      "awayGroup": "C"
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 4,
+      "awayGoals": 2
     },
     {
       "match": 53,
@@ -688,7 +844,10 @@
       "home": "Czech Republic",
       "away": "Mexico",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "match": 54,
@@ -701,7 +860,10 @@
       "home": "South Africa",
       "away": "South Korea",
       "homeGroup": "A",
-      "awayGroup": "A"
+      "awayGroup": "A",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "match": 55,
@@ -714,7 +876,10 @@
       "home": "Curaçao",
       "away": "Ivory Coast",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 2
     },
     {
       "match": 56,
@@ -727,7 +892,10 @@
       "home": "Ecuador",
       "away": "Germany",
       "homeGroup": "E",
-      "awayGroup": "E"
+      "awayGroup": "E",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "match": 57,
@@ -740,7 +908,10 @@
       "home": "Japan",
       "away": "Sweden",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 58,
@@ -753,7 +924,10 @@
       "home": "Tunisia",
       "away": "Netherlands",
       "homeGroup": "F",
-      "awayGroup": "F"
+      "awayGroup": "F",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "match": 59,
@@ -766,7 +940,10 @@
       "home": "Turkey",
       "away": "United States",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 2
     },
     {
       "match": 60,
@@ -779,7 +956,10 @@
       "home": "Paraguay",
       "away": "Australia",
       "homeGroup": "D",
-      "awayGroup": "D"
+      "awayGroup": "D",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 61,
@@ -792,7 +972,10 @@
       "home": "Norway",
       "away": "France",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 4
     },
     {
       "match": 62,
@@ -805,7 +988,10 @@
       "home": "Senegal",
       "away": "Iraq",
       "homeGroup": "I",
-      "awayGroup": "I"
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 5,
+      "awayGoals": 0
     },
     {
       "match": 63,
@@ -818,7 +1004,10 @@
       "home": "Uruguay",
       "away": "Spain",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 64,
@@ -831,7 +1020,10 @@
       "home": "Cape Verde",
       "away": "Saudi Arabia",
       "homeGroup": "H",
-      "awayGroup": "H"
+      "awayGroup": "H",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 65,
@@ -844,7 +1036,10 @@
       "home": "Egypt",
       "away": "Iran",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "match": 66,
@@ -857,7 +1052,10 @@
       "home": "New Zealand",
       "away": "Belgium",
       "homeGroup": "G",
-      "awayGroup": "G"
+      "awayGroup": "G",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 5
     },
     {
       "match": 67,
@@ -870,7 +1068,10 @@
       "home": "Panama",
       "away": "England",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 2
     },
     {
       "match": 68,
@@ -883,7 +1084,10 @@
       "home": "Croatia",
       "away": "Ghana",
       "homeGroup": "L",
-      "awayGroup": "L"
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "match": 69,
@@ -896,7 +1100,10 @@
       "home": "Colombia",
       "away": "Portugal",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "match": 70,
@@ -909,7 +1116,10 @@
       "home": "DR Congo",
       "away": "Uzbekistan",
       "homeGroup": "K",
-      "awayGroup": "K"
+      "awayGroup": "K",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 1
     },
     {
       "match": 71,
@@ -922,7 +1132,10 @@
       "home": "Algeria",
       "away": "Austria",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 3
     },
     {
       "match": 72,
@@ -935,7 +1148,10 @@
       "home": "Jordan",
       "away": "Argentina",
       "homeGroup": "J",
-      "awayGroup": "J"
+      "awayGroup": "J",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "match": 73,
@@ -945,10 +1161,13 @@
       "city": "Los Angeles, USA",
       "venueTz": "America/Los_Angeles",
       "kickoffUtc": "2026-06-28T19:00:00Z",
-      "home": "Winner A",
-      "away": "Runner-up B",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "South Africa",
+      "away": "Canada",
+      "homeGroup": "A",
+      "awayGroup": "B",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "match": 74,
@@ -958,10 +1177,13 @@
       "city": "Boston, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-06-29T20:30:00Z",
-      "home": "Winner E",
-      "away": "3rd A/B/C/D/F",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Germany",
+      "away": "Paraguay",
+      "homeGroup": "E",
+      "awayGroup": "D",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 75,
@@ -971,10 +1193,13 @@
       "city": "Monterrey, MEX",
       "venueTz": "America/Mexico_City",
       "kickoffUtc": "2026-06-30T01:00:00Z",
-      "home": "Winner F",
-      "away": "Runner-up C",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Netherlands",
+      "away": "Morocco",
+      "homeGroup": "F",
+      "awayGroup": "C",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 76,
@@ -984,10 +1209,13 @@
       "city": "Houston, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-06-29T17:00:00Z",
-      "home": "Winner C",
-      "away": "Runner-up F",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Brazil",
+      "away": "Japan",
+      "homeGroup": "C",
+      "awayGroup": "F",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 77,
@@ -997,10 +1225,13 @@
       "city": "Dallas, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-06-30T17:00:00Z",
-      "home": "Runner-up E",
-      "away": "Runner-up I",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "France",
+      "away": "Sweden",
+      "homeGroup": "I",
+      "awayGroup": "F",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 78,
@@ -1010,10 +1241,13 @@
       "city": "New York/NJ, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-06-30T21:00:00Z",
-      "home": "Winner I",
-      "away": "3rd C/D/F/G/H",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Ivory Coast",
+      "away": "Norway",
+      "homeGroup": "E",
+      "awayGroup": "I",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 79,
@@ -1023,10 +1257,13 @@
       "city": "Mexico City, MEX",
       "venueTz": "America/Mexico_City",
       "kickoffUtc": "2026-07-01T01:00:00Z",
-      "home": "Winner A",
-      "away": "3rd C/E/F/H/I",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Mexico",
+      "away": "Ecuador",
+      "homeGroup": "A",
+      "awayGroup": "E",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 80,
@@ -1036,10 +1273,13 @@
       "city": "Atlanta, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-07-01T16:00:00Z",
-      "home": "Winner L",
-      "away": "3rd E/H/I/J/K",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "England",
+      "away": "DR Congo",
+      "homeGroup": "L",
+      "awayGroup": "K",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 81,
@@ -1049,10 +1289,13 @@
       "city": "Seattle, USA",
       "venueTz": "America/Los_Angeles",
       "kickoffUtc": "2026-07-01T20:00:00Z",
-      "home": "Winner G",
-      "away": "3rd A/E/H/I/J",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "United States",
+      "away": "Bosnia and Herzegovina",
+      "homeGroup": "D",
+      "awayGroup": "B",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 82,
@@ -1062,10 +1305,13 @@
       "city": "San Francisco Bay, USA",
       "venueTz": "America/Los_Angeles",
       "kickoffUtc": "2026-07-02T00:00:00Z",
-      "home": "Winner D",
-      "away": "3rd B/E/F/I/J",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Belgium",
+      "away": "Senegal",
+      "homeGroup": "G",
+      "awayGroup": "I",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 83,
@@ -1075,10 +1321,13 @@
       "city": "Los Angeles, USA",
       "venueTz": "America/Los_Angeles",
       "kickoffUtc": "2026-07-02T19:00:00Z",
-      "home": "Winner H",
-      "away": "Runner-up J",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Portugal",
+      "away": "Croatia",
+      "homeGroup": "K",
+      "awayGroup": "L",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 84,
@@ -1088,10 +1337,13 @@
       "city": "Toronto, CAN",
       "venueTz": "America/Toronto",
       "kickoffUtc": "2026-07-02T23:00:00Z",
-      "home": "Runner-up K",
-      "away": "Runner-up L",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Spain",
+      "away": "Austria",
+      "homeGroup": "H",
+      "awayGroup": "J",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 85,
@@ -1101,10 +1353,13 @@
       "city": "Vancouver, CAN",
       "venueTz": "America/Vancouver",
       "kickoffUtc": "2026-07-03T03:00:00Z",
-      "home": "Winner B",
-      "away": "3rd E/F/G/I/J",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Switzerland",
+      "away": "Algeria",
+      "homeGroup": "B",
+      "awayGroup": "J",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 86,
@@ -1114,10 +1369,13 @@
       "city": "Dallas, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-07-03T18:00:00Z",
-      "home": "Runner-up D",
-      "away": "Runner-up G",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Argentina",
+      "away": "Cape Verde",
+      "homeGroup": "J",
+      "awayGroup": "H",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 87,
@@ -1127,10 +1385,13 @@
       "city": "Miami, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-07-03T22:00:00Z",
-      "home": "Winner J",
-      "away": "Runner-up H",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Colombia",
+      "away": "Ghana",
+      "homeGroup": "K",
+      "awayGroup": "L",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 88,
@@ -1140,10 +1401,13 @@
       "city": "Kansas City, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-07-04T01:30:00Z",
-      "home": "Winner K",
-      "away": "3rd D/E/I/J/L",
-      "homeGroup": null,
-      "awayGroup": null
+      "home": "Australia",
+      "away": "Egypt",
+      "homeGroup": "D",
+      "awayGroup": "G",
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 89,
@@ -1156,7 +1420,10 @@
       "home": "Winner 73",
       "away": "Winner 75",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 90,
@@ -1169,7 +1436,10 @@
       "home": "Winner 74",
       "away": "Winner 77",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 91,
@@ -1182,7 +1452,10 @@
       "home": "Winner 76",
       "away": "Winner 78",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 92,
@@ -1195,7 +1468,10 @@
       "home": "Winner 79",
       "away": "Winner 80",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 93,
@@ -1208,7 +1484,10 @@
       "home": "Winner 83",
       "away": "Winner 84",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 94,
@@ -1221,7 +1500,10 @@
       "home": "Winner 81",
       "away": "Winner 82",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 95,
@@ -1234,7 +1516,10 @@
       "home": "Winner 86",
       "away": "Winner 88",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 96,
@@ -1247,7 +1532,10 @@
       "home": "Winner 85",
       "away": "Winner 87",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 97,
@@ -1260,7 +1548,10 @@
       "home": "Winner 89",
       "away": "Winner 90",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 98,
@@ -1273,7 +1564,10 @@
       "home": "Winner 93",
       "away": "Winner 94",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 99,
@@ -1286,7 +1580,10 @@
       "home": "Winner 91",
       "away": "Winner 92",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 100,
@@ -1299,7 +1596,10 @@
       "home": "Winner 95",
       "away": "Winner 96",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 101,
@@ -1312,7 +1612,10 @@
       "home": "Winner 97",
       "away": "Winner 98",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 102,
@@ -1325,7 +1628,10 @@
       "home": "Winner 99",
       "away": "Winner 100",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 103,
@@ -1338,7 +1644,10 @@
       "home": "Loser 101",
       "away": "Loser 102",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     },
     {
       "match": 104,
@@ -1351,7 +1660,10 @@
       "home": "Winner 101",
       "away": "Winner 102",
       "homeGroup": null,
-      "awayGroup": null
+      "awayGroup": null,
+      "played": false,
+      "homeGoals": null,
+      "awayGoals": null
     }
   ]
 }

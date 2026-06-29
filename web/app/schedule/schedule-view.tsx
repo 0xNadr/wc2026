@@ -293,6 +293,7 @@ export function ScheduleView({ matches }: { matches: EnrichedMatch[] }) {
                 const tzAbbr = tzAbbrev(m.kickoffUtc, tz);
                 const sb = stageBadge(m.stage, m.group);
                 const isNext = m.match === nextMatchId;
+                const played = m.played === true;
                 return (
                   <li
                     key={m.match}
@@ -302,24 +303,51 @@ export function ScheduleView({ matches }: { matches: EnrichedMatch[] }) {
                         : ""
                     }`}
                   >
-                    {/* Time block — fixed width */}
+                    {/* Time block — fixed width (shows FT once the game is played) */}
                     <div className="flex flex-col leading-tight shrink-0 w-12">
-                      <span className="font-mono tabular-nums font-semibold text-foreground">
-                        {time}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground tabular-nums">
-                        {tzAbbr}
-                      </span>
+                      {played ? (
+                        <span className="font-semibold text-[11px] uppercase tracking-wide text-muted-foreground">
+                          FT
+                        </span>
+                      ) : (
+                        <>
+                          <span className="font-mono tabular-nums font-semibold text-foreground">
+                            {time}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground tabular-nums">
+                            {tzAbbr}
+                          </span>
+                        </>
+                      )}
                     </div>
 
-                    {/* Teams — stacked on mobile, individual grid cells on sm+ */}
+                    {/* Teams — stacked on mobile, individual grid cells on sm+.
+                        Final scores: per-team on mobile, combined in the centre cell on sm+. */}
                     <div className="min-w-0 flex-1 flex flex-col sm:contents">
-                      <div className="min-w-0 sm:text-right">
+                      <div className="min-w-0 sm:text-right flex items-center justify-between sm:justify-end gap-2">
                         <TeamLabel name={m.home} align="left-mobile-right-desktop" />
+                        {played && (
+                          <span className="sm:hidden font-mono tabular-nums font-bold text-foreground">
+                            {m.homeGoals}
+                          </span>
+                        )}
                       </div>
-                      <span className="hidden sm:inline text-muted-foreground/60 text-xs">–</span>
-                      <div className="min-w-0">
+                      <span className="hidden sm:flex items-center justify-center text-xs tabular-nums">
+                        {played ? (
+                          <span className="font-bold text-sm text-foreground">
+                            {m.homeGoals}<span className="text-muted-foreground/60 mx-0.5">–</span>{m.awayGoals}
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground/60">–</span>
+                        )}
+                      </span>
+                      <div className="min-w-0 flex items-center justify-between gap-2">
                         <TeamLabel name={m.away} align="left" />
+                        {played && (
+                          <span className="sm:hidden font-mono tabular-nums font-bold text-foreground">
+                            {m.awayGoals}
+                          </span>
+                        )}
                       </div>
                     </div>
 
