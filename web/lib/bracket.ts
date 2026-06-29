@@ -53,7 +53,7 @@ export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
   // Fast path: once the group stage is complete the real bracket is published in
   // results.json — use it directly instead of re-deriving a synthetic one.
   if (r.r32_bracket && r.r32_bracket.length > 0) {
-    return walkBracket(r.r32_bracket.map(([a, b]) => [a, b] as [string, string]), mu);
+    return walkBracket(r.r32_bracket.map(([a, b]) => [a, b] as [string, string]), r, mu);
   }
 
   // 1. Group winners + runners-up = single canonical pick per slot
@@ -136,22 +136,39 @@ export function buildModalBracket(r: Results, mu: Matchups): BracketMatch[] {
   };
 
   const seed = R32_SLOTS.map(([a, b]) => [resolveSlot(a), resolveSlot(b)] as [string, string]);
-  return walkBracket(seed, mu);
+  return walkBracket(seed, r, mu);
 }
 
-// Walk the bracket from a seed of 16 R32 pairings, advancing the model-favored
-// team at each match. Consecutive pairs meet in the next round.
-function walkBracket(seed: [string, string][], mu: Matchups): BracketMatch[] {
+// The round a match winner advances INTO — used to decide who progresses, so the
+// path stays consistent with the headline forecast (and respects played games).
+const ADVANCES_TO: Record<BracketMatch["stage"], keyof Results["probabilities"]> = {
+  R32: "round_of_16",
+  R16: "quarterfinal",
+  QF: "semifinal",
+  SF: "final",
+  Final: "champion",
+};
+
+// Walk the bracket from a seed of 16 R32 pairings. Advancement is decided by the
+// conditioned simulation: at each match the team more likely to reach the next
+// round goes through (so the final winner is the most-likely champion, and any
+// already-played tie resolves to its real winner — whose next-round prob is 1,
+// the loser's 0). The displayed prob_winner is that same advancement
+// probability (chance to reach this round / lift the trophy at the final), so
+// the number always matches why the team is shown going through. The pairwise
+// matchup cell is retained for the head-to-head detail.
+function walkBracket(seed: [string, string][], r: Results, mu: Matchups): BracketMatch[] {
   let teams = seed;
   const matches: BracketMatch[] = [];
   const stages: BracketMatch["stage"][] = ["R32", "R16", "QF", "SF", "Final"];
 
   for (const stage of stages) {
+    const advanceProb = r.probabilities[ADVANCES_TO[stage]] ?? {};
     const winners: string[] = [];
     for (const [a, b] of teams) {
       const cell = lookupCell(mu, a, b);
-      const winner = cell.p_a >= cell.p_b ? a : b;
-      const prob_winner = winner === a ? cell.p_a : cell.p_b;
+      const winner = (advanceProb[a] ?? 0) >= (advanceProb[b] ?? 0) ? a : b;
+      const prob_winner = advanceProb[winner] ?? (winner === a ? cell.p_a : cell.p_b);
       matches.push({
         stage,
         team_a: a,

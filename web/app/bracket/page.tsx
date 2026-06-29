@@ -31,9 +31,10 @@ export default async function BracketPage() {
         <h1 className="text-3xl font-bold tracking-tight">Knockout bracket</h1>
         <p className="text-muted-foreground">
           Probability each team reaches each knockout stage, derived from{" "}
-          {r.n_simulations.toLocaleString()} simulated tournaments. The modal path below picks the
-          most likely team in each starting slot and walks the bracket using pairwise win
-          probabilities. One of many possible timelines.
+          {r.n_simulations.toLocaleString()} simulated tournaments (conditioned on results so far).
+          The modal path below walks the real bracket, advancing the team more likely to reach the
+          next round — so it ends on the most-likely champion and reflects games already played.
+          One of many possible timelines.
         </p>
       </section>
 
