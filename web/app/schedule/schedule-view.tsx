@@ -91,7 +91,7 @@ function isPlaceholder(team: string): boolean {
 
 type TeamAlign = "left" | "right" | "left-mobile-right-desktop";
 
-function TeamLabel({ name, align }: { name: string; align: TeamAlign }) {
+function TeamLabel({ name, align, won }: { name: string; align: TeamAlign; won?: boolean }) {
   const placeholder = isPlaceholder(name);
   const flag = (
     <span className="text-base shrink-0 leading-none">
@@ -101,7 +101,7 @@ function TeamLabel({ name, align }: { name: string; align: TeamAlign }) {
   const label = (
     <span
       className={`truncate ${
-        placeholder ? "text-muted-foreground italic" : "font-medium"
+        placeholder ? "text-muted-foreground italic" : won ? "font-bold" : "font-medium"
       }`}
     >
       {name}
@@ -294,6 +294,8 @@ export function ScheduleView({ matches }: { matches: EnrichedMatch[] }) {
                 const sb = stageBadge(m.stage, m.group);
                 const isNext = m.match === nextMatchId;
                 const played = m.played === true;
+                const homeWon = played && m.winner != null && m.winner === m.home;
+                const awayWon = played && m.winner != null && m.winner === m.away;
                 return (
                   <li
                     key={m.match}
@@ -325,24 +327,31 @@ export function ScheduleView({ matches }: { matches: EnrichedMatch[] }) {
                         Final scores: per-team on mobile, combined in the centre cell on sm+. */}
                     <div className="min-w-0 flex-1 flex flex-col sm:contents">
                       <div className="min-w-0 sm:text-right flex items-center justify-between sm:justify-end gap-2">
-                        <TeamLabel name={m.home} align="left-mobile-right-desktop" />
+                        <TeamLabel name={m.home} align="left-mobile-right-desktop" won={homeWon} />
                         {played && (
                           <span className="sm:hidden font-mono tabular-nums font-bold text-foreground">
                             {m.homeGoals}
                           </span>
                         )}
                       </div>
-                      <span className="hidden sm:flex items-center justify-center text-xs tabular-nums">
+                      <span className="hidden sm:flex flex-col items-center justify-center text-xs tabular-nums leading-none gap-0.5">
                         {played ? (
-                          <span className="font-bold text-sm text-foreground">
-                            {m.homeGoals}<span className="text-muted-foreground/60 mx-0.5">–</span>{m.awayGoals}
-                          </span>
+                          <>
+                            <span className="font-bold text-sm text-foreground">
+                              {m.homeGoals}<span className="text-muted-foreground/60 mx-0.5">–</span>{m.awayGoals}
+                            </span>
+                            {m.pens && (
+                              <span className="text-[9px] text-muted-foreground normal-case">
+                                pens {m.pens.replace("-", "–")}
+                              </span>
+                            )}
+                          </>
                         ) : (
                           <span className="text-muted-foreground/60">–</span>
                         )}
                       </span>
                       <div className="min-w-0 flex items-center justify-between gap-2">
-                        <TeamLabel name={m.away} align="left" />
+                        <TeamLabel name={m.away} align="left" won={awayWon} />
                         {played && (
                           <span className="sm:hidden font-mono tabular-nums font-bold text-foreground">
                             {m.awayGoals}

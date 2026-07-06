@@ -143,14 +143,15 @@ ROWS = [
     (86, "2026-07-03 13:00", "Dallas Stadium", "Round of 32", "Argentina", "Cape Verde"),
     (87, "2026-07-03 18:00", "Miami Stadium", "Round of 32", "Colombia", "Ghana"),
     (88, "2026-07-03 20:30", "Kansas City Stadium", "Round of 32", "Australia", "Egypt"),
-    (89, "2026-07-04 12:00", "Houston Stadium", "Round of 16", "Winner 73", "Winner 75"),
-    (90, "2026-07-04 17:00", "Philadelphia Stadium", "Round of 16", "Winner 74", "Winner 77"),
-    (91, "2026-07-05 16:00", "New York/New Jersey Stadium", "Round of 16", "Winner 76", "Winner 78"),
-    (92, "2026-07-05 18:00", "Mexico City Stadium", "Round of 16", "Winner 79", "Winner 80"),
-    (93, "2026-07-06 14:00", "Dallas Stadium", "Round of 16", "Winner 83", "Winner 84"),
-    (94, "2026-07-06 17:00", "Seattle Stadium", "Round of 16", "Winner 81", "Winner 82"),
-    (95, "2026-07-07 12:00", "Atlanta Stadium", "Round of 16", "Winner 86", "Winner 88"),
-    (96, "2026-07-07 13:00", "BC Place Vancouver", "Round of 16", "Winner 85", "Winner 87"),
+    # Round-of-16 teams resolved from the Round-of-32 winners (real bracket).
+    (89, "2026-07-04 12:00", "Houston Stadium", "Round of 16", "Canada", "Morocco"),
+    (90, "2026-07-04 17:00", "Philadelphia Stadium", "Round of 16", "Paraguay", "France"),
+    (91, "2026-07-05 16:00", "New York/New Jersey Stadium", "Round of 16", "Brazil", "Norway"),
+    (92, "2026-07-05 18:00", "Mexico City Stadium", "Round of 16", "Mexico", "England"),
+    (93, "2026-07-06 14:00", "Dallas Stadium", "Round of 16", "Portugal", "Spain"),
+    (94, "2026-07-06 17:00", "Seattle Stadium", "Round of 16", "United States", "Belgium"),
+    (95, "2026-07-07 12:00", "Atlanta Stadium", "Round of 16", "Argentina", "Egypt"),
+    (96, "2026-07-07 13:00", "BC Place Vancouver", "Round of 16", "Switzerland", "Colombia"),
     (97, "2026-07-09 16:00", "Boston Stadium", "Quarter-final", "Winner 89", "Winner 90"),
     (98, "2026-07-10 12:00", "Los Angeles Stadium", "Quarter-final", "Winner 93", "Winner 94"),
     (99, "2026-07-11 17:00", "Miami Stadium", "Quarter-final", "Winner 91", "Winner 92"),
@@ -173,7 +174,7 @@ def main() -> None:
     known = {}
     if known_path.exists():
         for m in json.loads(known_path.read_text())["matches"]:
-            known[m["match"]] = (m["homeGoals"], m["awayGoals"])
+            known[m["match"]] = m
 
     matches = []
     for num, local_str, venue, stage, home, away in ROWS:
@@ -185,7 +186,7 @@ def main() -> None:
             group = stage.split(" ", 1)[1]
         else:
             group = None
-        score = known.get(num)
+        rec = known.get(num)
         matches.append({
             "match": num,
             "stage": stage,
@@ -198,9 +199,12 @@ def main() -> None:
             "away": away,
             "homeGroup": team_to_group.get(home),
             "awayGroup": team_to_group.get(away),
-            "played": score is not None,
-            "homeGoals": score[0] if score else None,
-            "awayGoals": score[1] if score else None,
+            "played": rec is not None,
+            "homeGoals": rec["homeGoals"] if rec else None,
+            "awayGoals": rec["awayGoals"] if rec else None,
+            # Knockout tiebreak info: winner (bolded in UI) and shootout score.
+            "winner": rec.get("winner") if rec else None,
+            "pens": rec.get("pens") if rec else None,
         })
 
     out = {

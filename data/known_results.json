@@ -1,7 +1,7 @@
 {
   "description": "Played 2026 World Cup match results. Single source of truth for both the Monte Carlo simulation (which fixes these games and only samples the unplayed remainder) and the schedule UI (which renders the scorelines). Update this file as new matches are played, then re-run scripts/simulate.py and web/scripts/build_schedule.py. 'match' is the fixture number from web/scripts/build_schedule.py ROWS; 'home'/'away' must exactly match the QUALIFIED_TEAMS / fixture names and orientation. Knockout entries carry a 'winner' field for games decided after a draw (extra time / penalties).",
-  "lastUpdated": "2026-06-28",
-  "source": "Official FIFA / Wikipedia per-group match reports and knockout bracket",
+  "lastUpdated": "2026-07-06",
+  "source": "Official FIFA / Wikipedia / ESPN / CBS per-match reports and knockout bracket",
   "matches": [
     {"match": 1,  "stage": "Group A", "home": "Mexico",         "away": "South Africa",           "homeGoals": 2, "awayGoals": 0},
     {"match": 2,  "stage": "Group A", "home": "South Korea",    "away": "Czech Republic",         "homeGoals": 2, "awayGoals": 1},
@@ -76,6 +76,26 @@
     {"match": 71, "stage": "Group J", "home": "Algeria",        "away": "Austria",                "homeGoals": 3, "awayGoals": 3},
     {"match": 72, "stage": "Group J", "home": "Jordan",         "away": "Argentina",              "homeGoals": 1, "awayGoals": 3},
 
-    {"match": 73, "stage": "Round of 32", "home": "South Africa", "away": "Canada", "homeGoals": 0, "awayGoals": 1, "winner": "Canada"}
+    {"match": 73, "stage": "Round of 32", "home": "South Africa",  "away": "Canada",                 "homeGoals": 0, "awayGoals": 1, "winner": "Canada"},
+    {"match": 74, "stage": "Round of 32", "home": "Germany",       "away": "Paraguay",               "homeGoals": 1, "awayGoals": 1, "winner": "Paraguay", "pens": "3-4"},
+    {"match": 75, "stage": "Round of 32", "home": "Netherlands",   "away": "Morocco",                "homeGoals": 1, "awayGoals": 1, "winner": "Morocco", "pens": "2-3"},
+    {"match": 76, "stage": "Round of 32", "home": "Brazil",        "away": "Japan",                  "homeGoals": 2, "awayGoals": 1, "winner": "Brazil"},
+    {"match": 77, "stage": "Round of 32", "home": "France",        "away": "Sweden",                 "homeGoals": 3, "awayGoals": 0, "winner": "France"},
+    {"match": 78, "stage": "Round of 32", "home": "Ivory Coast",   "away": "Norway",                 "homeGoals": 1, "awayGoals": 2, "winner": "Norway"},
+    {"match": 79, "stage": "Round of 32", "home": "Mexico",        "away": "Ecuador",                "homeGoals": 2, "awayGoals": 0, "winner": "Mexico"},
+    {"match": 80, "stage": "Round of 32", "home": "England",       "away": "DR Congo",               "homeGoals": 2, "awayGoals": 1, "winner": "England"},
+    {"match": 81, "stage": "Round of 32", "home": "United States", "away": "Bosnia and Herzegovina", "homeGoals": 2, "awayGoals": 0, "winner": "United States"},
+    {"match": 82, "stage": "Round of 32", "home": "Belgium",       "away": "Senegal",                "homeGoals": 3, "awayGoals": 2, "winner": "Belgium", "aet": true},
+    {"match": 83, "stage": "Round of 32", "home": "Portugal",      "away": "Croatia",                "homeGoals": 2, "awayGoals": 1, "winner": "Portugal"},
+    {"match": 84, "stage": "Round of 32", "home": "Spain",         "away": "Austria",                "homeGoals": 3, "awayGoals": 0, "winner": "Spain"},
+    {"match": 85, "stage": "Round of 32", "home": "Switzerland",   "away": "Algeria",                "homeGoals": 2, "awayGoals": 0, "winner": "Switzerland"},
+    {"match": 86, "stage": "Round of 32", "home": "Argentina",     "away": "Cape Verde",             "homeGoals": 3, "awayGoals": 2, "winner": "Argentina", "aet": true},
+    {"match": 87, "stage": "Round of 32", "home": "Colombia",      "away": "Ghana",                  "homeGoals": 1, "awayGoals": 0, "winner": "Colombia"},
+    {"match": 88, "stage": "Round of 32", "home": "Australia",     "away": "Egypt",                  "homeGoals": 1, "awayGoals": 1, "winner": "Egypt", "pens": "2-4"},
+
+    {"match": 89, "stage": "Round of 16", "home": "Canada",        "away": "Morocco",                "homeGoals": 0, "awayGoals": 3, "winner": "Morocco"},
+    {"match": 90, "stage": "Round of 16", "home": "Paraguay",      "away": "France",                 "homeGoals": 0, "awayGoals": 1, "winner": "France"},
+    {"match": 91, "stage": "Round of 16", "home": "Brazil",        "away": "Norway",                 "homeGoals": 1, "awayGoals": 2, "winner": "Norway"},
+    {"match": 92, "stage": "Round of 16", "home": "Mexico",        "away": "England",                "homeGoals": 2, "awayGoals": 3, "winner": "England"}
   ]
 }

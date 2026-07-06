@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T11:34:52Z",
+  "generatedAt": "2026-07-06T16:06:47Z",
   "matches": [
     {
       "match": 1,
@@ -15,7 +15,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 2,
@@ -31,7 +33,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 3,
@@ -47,7 +51,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 4,
@@ -63,7 +69,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 4,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 5,
@@ -79,7 +87,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 6,
@@ -95,7 +105,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 7,
@@ -111,7 +123,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 8,
@@ -127,7 +141,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 9,
@@ -143,7 +159,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 7,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 10,
@@ -159,7 +177,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 11,
@@ -175,7 +195,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 12,
@@ -191,7 +213,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 5,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 13,
@@ -207,7 +231,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 14,
@@ -223,7 +249,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 15,
@@ -239,7 +267,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 16,
@@ -255,7 +285,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 17,
@@ -271,7 +303,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 18,
@@ -287,7 +321,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 4
+      "awayGoals": 4,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 19,
@@ -303,7 +339,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 20,
@@ -319,7 +357,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 21,
@@ -335,7 +375,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 22,
@@ -351,7 +393,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 4,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 23,
@@ -367,7 +411,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 24,
@@ -383,7 +429,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 25,
@@ -399,7 +447,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 26,
@@ -415,7 +465,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 4,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 27,
@@ -431,7 +483,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 6,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 28,
@@ -447,7 +501,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 29,
@@ -463,7 +519,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 30,
@@ -479,7 +537,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 31,
@@ -495,7 +555,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 32,
@@ -511,7 +573,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 33,
@@ -527,7 +591,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 5,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 34,
@@ -543,7 +609,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 35,
@@ -559,7 +627,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 36,
@@ -575,7 +645,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 4
+      "awayGoals": 4,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 37,
@@ -591,7 +663,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 4,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 38,
@@ -607,7 +681,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 39,
@@ -623,7 +699,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 40,
@@ -639,7 +717,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 41,
@@ -655,7 +735,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 42,
@@ -671,7 +753,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 43,
@@ -687,7 +771,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 44,
@@ -703,7 +789,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 45,
@@ -719,7 +807,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 5,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 46,
@@ -735,7 +825,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 47,
@@ -751,7 +843,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 48,
@@ -767,7 +861,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 49,
@@ -783,7 +879,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 50,
@@ -799,7 +897,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 51,
@@ -815,7 +915,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 52,
@@ -831,7 +933,9 @@
       "awayGroup": "C",
       "played": true,
       "homeGoals": 4,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 53,
@@ -847,7 +951,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 54,
@@ -863,7 +969,9 @@
       "awayGroup": "A",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 55,
@@ -879,7 +987,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 56,
@@ -895,7 +1005,9 @@
       "awayGroup": "E",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 57,
@@ -911,7 +1023,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 58,
@@ -927,7 +1041,9 @@
       "awayGroup": "F",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 59,
@@ -943,7 +1059,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 60,
@@ -959,7 +1077,9 @@
       "awayGroup": "D",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 61,
@@ -975,7 +1095,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 4
+      "awayGoals": 4,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 62,
@@ -991,7 +1113,9 @@
       "awayGroup": "I",
       "played": true,
       "homeGoals": 5,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 63,
@@ -1007,7 +1131,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 64,
@@ -1023,7 +1149,9 @@
       "awayGroup": "H",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 65,
@@ -1039,7 +1167,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 66,
@@ -1055,7 +1185,9 @@
       "awayGroup": "G",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 5
+      "awayGoals": 5,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 67,
@@ -1071,7 +1203,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 2
+      "awayGoals": 2,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 68,
@@ -1087,7 +1221,9 @@
       "awayGroup": "L",
       "played": true,
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 69,
@@ -1103,7 +1239,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 70,
@@ -1119,7 +1257,9 @@
       "awayGroup": "K",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 71,
@@ -1135,7 +1275,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 3,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 72,
@@ -1151,7 +1293,9 @@
       "awayGroup": "J",
       "played": true,
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 73,
@@ -1167,7 +1311,9 @@
       "awayGroup": "B",
       "played": true,
       "homeGoals": 0,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "winner": "Canada",
+      "pens": null
     },
     {
       "match": 74,
@@ -1181,9 +1327,11 @@
       "away": "Paraguay",
       "homeGroup": "E",
       "awayGroup": "D",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1,
+      "winner": "Paraguay",
+      "pens": "3-4"
     },
     {
       "match": 75,
@@ -1197,9 +1345,11 @@
       "away": "Morocco",
       "homeGroup": "F",
       "awayGroup": "C",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1,
+      "winner": "Morocco",
+      "pens": "2-3"
     },
     {
       "match": 76,
@@ -1213,9 +1363,11 @@
       "away": "Japan",
       "homeGroup": "C",
       "awayGroup": "F",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1,
+      "winner": "Brazil",
+      "pens": null
     },
     {
       "match": 77,
@@ -1229,9 +1381,11 @@
       "away": "Sweden",
       "homeGroup": "I",
       "awayGroup": "F",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 0,
+      "winner": "France",
+      "pens": null
     },
     {
       "match": 78,
@@ -1245,9 +1399,11 @@
       "away": "Norway",
       "homeGroup": "E",
       "awayGroup": "I",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 2,
+      "winner": "Norway",
+      "pens": null
     },
     {
       "match": 79,
@@ -1261,9 +1417,11 @@
       "away": "Ecuador",
       "homeGroup": "A",
       "awayGroup": "E",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0,
+      "winner": "Mexico",
+      "pens": null
     },
     {
       "match": 80,
@@ -1277,9 +1435,11 @@
       "away": "DR Congo",
       "homeGroup": "L",
       "awayGroup": "K",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1,
+      "winner": "England",
+      "pens": null
     },
     {
       "match": 81,
@@ -1293,9 +1453,11 @@
       "away": "Bosnia and Herzegovina",
       "homeGroup": "D",
       "awayGroup": "B",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0,
+      "winner": "United States",
+      "pens": null
     },
     {
       "match": 82,
@@ -1309,9 +1471,11 @@
       "away": "Senegal",
       "homeGroup": "G",
       "awayGroup": "I",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 2,
+      "winner": "Belgium",
+      "pens": null
     },
     {
       "match": 83,
@@ -1325,9 +1489,11 @@
       "away": "Croatia",
       "homeGroup": "K",
       "awayGroup": "L",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 1,
+      "winner": "Portugal",
+      "pens": null
     },
     {
       "match": 84,
@@ -1341,9 +1507,11 @@
       "away": "Austria",
       "homeGroup": "H",
       "awayGroup": "J",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 0,
+      "winner": "Spain",
+      "pens": null
     },
     {
       "match": 85,
@@ -1357,9 +1525,11 @@
       "away": "Algeria",
       "homeGroup": "B",
       "awayGroup": "J",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 0,
+      "winner": "Switzerland",
+      "pens": null
     },
     {
       "match": 86,
@@ -1373,9 +1543,11 @@
       "away": "Cape Verde",
       "homeGroup": "J",
       "awayGroup": "H",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 3,
+      "awayGoals": 2,
+      "winner": "Argentina",
+      "pens": null
     },
     {
       "match": 87,
@@ -1389,9 +1561,11 @@
       "away": "Ghana",
       "homeGroup": "K",
       "awayGroup": "L",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 0,
+      "winner": "Colombia",
+      "pens": null
     },
     {
       "match": 88,
@@ -1405,9 +1579,11 @@
       "away": "Egypt",
       "homeGroup": "D",
       "awayGroup": "G",
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 1,
+      "winner": "Egypt",
+      "pens": "2-4"
     },
     {
       "match": 89,
@@ -1417,13 +1593,15 @@
       "city": "Houston, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-07-04T17:00:00Z",
-      "home": "Winner 73",
-      "away": "Winner 75",
-      "homeGroup": null,
-      "awayGroup": null,
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "home": "Canada",
+      "away": "Morocco",
+      "homeGroup": "B",
+      "awayGroup": "C",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 3,
+      "winner": "Morocco",
+      "pens": null
     },
     {
       "match": 90,
@@ -1433,13 +1611,15 @@
       "city": "Philadelphia, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-07-04T21:00:00Z",
-      "home": "Winner 74",
-      "away": "Winner 77",
-      "homeGroup": null,
-      "awayGroup": null,
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "home": "Paraguay",
+      "away": "France",
+      "homeGroup": "D",
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 0,
+      "awayGoals": 1,
+      "winner": "France",
+      "pens": null
     },
     {
       "match": 91,
@@ -1449,13 +1629,15 @@
       "city": "New York/NJ, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-07-05T20:00:00Z",
-      "home": "Winner 76",
-      "away": "Winner 78",
-      "homeGroup": null,
-      "awayGroup": null,
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "home": "Brazil",
+      "away": "Norway",
+      "homeGroup": "C",
+      "awayGroup": "I",
+      "played": true,
+      "homeGoals": 1,
+      "awayGoals": 2,
+      "winner": "Norway",
+      "pens": null
     },
     {
       "match": 92,
@@ -1465,13 +1647,15 @@
       "city": "Mexico City, MEX",
       "venueTz": "America/Mexico_City",
       "kickoffUtc": "2026-07-06T00:00:00Z",
-      "home": "Winner 79",
-      "away": "Winner 80",
-      "homeGroup": null,
-      "awayGroup": null,
-      "played": false,
-      "homeGoals": null,
-      "awayGoals": null
+      "home": "Mexico",
+      "away": "England",
+      "homeGroup": "A",
+      "awayGroup": "L",
+      "played": true,
+      "homeGoals": 2,
+      "awayGoals": 3,
+      "winner": "England",
+      "pens": null
     },
     {
       "match": 93,
@@ -1481,13 +1665,15 @@
       "city": "Dallas, USA",
       "venueTz": "America/Chicago",
       "kickoffUtc": "2026-07-06T19:00:00Z",
-      "home": "Winner 83",
-      "away": "Winner 84",
-      "homeGroup": null,
-      "awayGroup": null,
+      "home": "Portugal",
+      "away": "Spain",
+      "homeGroup": "K",
+      "awayGroup": "H",
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 94,
@@ -1497,13 +1683,15 @@
       "city": "Seattle, USA",
       "venueTz": "America/Los_Angeles",
       "kickoffUtc": "2026-07-07T00:00:00Z",
-      "home": "Winner 81",
-      "away": "Winner 82",
-      "homeGroup": null,
-      "awayGroup": null,
+      "home": "United States",
+      "away": "Belgium",
+      "homeGroup": "D",
+      "awayGroup": "G",
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 95,
@@ -1513,13 +1701,15 @@
       "city": "Atlanta, USA",
       "venueTz": "America/New_York",
       "kickoffUtc": "2026-07-07T16:00:00Z",
-      "home": "Winner 86",
-      "away": "Winner 88",
-      "homeGroup": null,
-      "awayGroup": null,
+      "home": "Argentina",
+      "away": "Egypt",
+      "homeGroup": "J",
+      "awayGroup": "G",
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 96,
@@ -1529,13 +1719,15 @@
       "city": "Vancouver, CAN",
       "venueTz": "America/Vancouver",
       "kickoffUtc": "2026-07-07T20:00:00Z",
-      "home": "Winner 85",
-      "away": "Winner 87",
-      "homeGroup": null,
-      "awayGroup": null,
+      "home": "Switzerland",
+      "away": "Colombia",
+      "homeGroup": "B",
+      "awayGroup": "K",
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 97,
@@ -1551,7 +1743,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 98,
@@ -1567,7 +1761,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 99,
@@ -1583,7 +1779,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 100,
@@ -1599,7 +1797,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 101,
@@ -1615,7 +1815,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 102,
@@ -1631,7 +1833,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 103,
@@ -1647,7 +1851,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     },
     {
       "match": 104,
@@ -1663,7 +1869,9 @@
       "awayGroup": null,
       "played": false,
       "homeGoals": null,
-      "awayGoals": null
+      "awayGoals": null,
+      "winner": null,
+      "pens": null
     }
   ]
 }

@@ -13,6 +13,8 @@ export type ScheduleMatch = {
   played?: boolean;
   homeGoals?: number | null;
   awayGoals?: number | null;
+  winner?: string | null;   // knockout: team that advanced (incl. via ET/pens)
+  pens?: string | null;     // knockout shootout score as "home-away", if any
 };
 
 export type Schedule = {
