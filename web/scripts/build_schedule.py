@@ -152,12 +152,14 @@ ROWS = [
     (94, "2026-07-06 17:00", "Seattle Stadium", "Round of 16", "United States", "Belgium"),
     (95, "2026-07-07 12:00", "Atlanta Stadium", "Round of 16", "Argentina", "Egypt"),
     (96, "2026-07-07 13:00", "BC Place Vancouver", "Round of 16", "Switzerland", "Colombia"),
-    (97, "2026-07-09 16:00", "Boston Stadium", "Quarter-final", "Winner 89", "Winner 90"),
-    (98, "2026-07-10 12:00", "Los Angeles Stadium", "Quarter-final", "Winner 93", "Winner 94"),
-    (99, "2026-07-11 17:00", "Miami Stadium", "Quarter-final", "Winner 91", "Winner 92"),
-    (100, "2026-07-11 20:00", "Kansas City Stadium", "Quarter-final", "Winner 95", "Winner 96"),
-    (101, "2026-07-14 14:00", "Dallas Stadium", "Semi-final", "Winner 97", "Winner 98"),
-    (102, "2026-07-15 15:00", "Atlanta Stadium", "Semi-final", "Winner 99", "Winner 100"),
+    # Quarter-finals resolved from the Round-of-16 winners (real bracket).
+    (97, "2026-07-09 16:00", "Boston Stadium", "Quarter-final", "Morocco", "France"),
+    (98, "2026-07-10 12:00", "Los Angeles Stadium", "Quarter-final", "Spain", "Belgium"),
+    (99, "2026-07-11 17:00", "Miami Stadium", "Quarter-final", "Norway", "England"),
+    (100, "2026-07-11 20:00", "Kansas City Stadium", "Quarter-final", "Argentina", "Switzerland"),
+    # Semi-finals set: France v Spain (Dallas), England v Argentina (Atlanta).
+    (101, "2026-07-14 14:00", "Dallas Stadium", "Semi-final", "France", "Spain"),
+    (102, "2026-07-15 15:00", "Atlanta Stadium", "Semi-final", "England", "Argentina"),
     (103, "2026-07-18 17:00", "Miami Stadium", "Third place", "Loser 101", "Loser 102"),
     (104, "2026-07-19 15:00", "New York/New Jersey Stadium", "Final", "Winner 101", "Winner 102"),
 ]

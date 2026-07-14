@@ -1,6 +1,6 @@
 {
   "description": "Played 2026 World Cup match results. Single source of truth for both the Monte Carlo simulation (which fixes these games and only samples the unplayed remainder) and the schedule UI (which renders the scorelines). Update this file as new matches are played, then re-run scripts/simulate.py and web/scripts/build_schedule.py. 'match' is the fixture number from web/scripts/build_schedule.py ROWS; 'home'/'away' must exactly match the QUALIFIED_TEAMS / fixture names and orientation. Knockout entries carry a 'winner' field for games decided after a draw (extra time / penalties).",
-  "lastUpdated": "2026-07-06",
+  "lastUpdated": "2026-07-12",
   "source": "Official FIFA / Wikipedia / ESPN / CBS per-match reports and knockout bracket",
   "matches": [
     {"match": 1,  "stage": "Group A", "home": "Mexico",         "away": "South Africa",           "homeGoals": 2, "awayGoals": 0},
@@ -96,6 +96,15 @@
     {"match": 89, "stage": "Round of 16", "home": "Canada",        "away": "Morocco",                "homeGoals": 0, "awayGoals": 3, "winner": "Morocco"},
     {"match": 90, "stage": "Round of 16", "home": "Paraguay",      "away": "France",                 "homeGoals": 0, "awayGoals": 1, "winner": "France"},
     {"match": 91, "stage": "Round of 16", "home": "Brazil",        "away": "Norway",                 "homeGoals": 1, "awayGoals": 2, "winner": "Norway"},
-    {"match": 92, "stage": "Round of 16", "home": "Mexico",        "away": "England",                "homeGoals": 2, "awayGoals": 3, "winner": "England"}
+    {"match": 92, "stage": "Round of 16", "home": "Mexico",        "away": "England",                "homeGoals": 2, "awayGoals": 3, "winner": "England"},
+    {"match": 93, "stage": "Round of 16", "home": "Portugal",      "away": "Spain",                  "homeGoals": 0, "awayGoals": 1, "winner": "Spain"},
+    {"match": 94, "stage": "Round of 16", "home": "United States", "away": "Belgium",                "homeGoals": 1, "awayGoals": 4, "winner": "Belgium"},
+    {"match": 95, "stage": "Round of 16", "home": "Argentina",     "away": "Egypt",                  "homeGoals": 3, "awayGoals": 2, "winner": "Argentina"},
+    {"match": 96, "stage": "Round of 16", "home": "Switzerland",   "away": "Colombia",               "homeGoals": 0, "awayGoals": 0, "winner": "Switzerland", "pens": "4-3"},
+
+    {"match": 97,  "stage": "Quarter-final", "home": "Morocco",   "away": "France",       "homeGoals": 0, "awayGoals": 2, "winner": "France"},
+    {"match": 98,  "stage": "Quarter-final", "home": "Spain",     "away": "Belgium",      "homeGoals": 2, "awayGoals": 1, "winner": "Spain"},
+    {"match": 99,  "stage": "Quarter-final", "home": "Norway",    "away": "England",      "homeGoals": 1, "awayGoals": 2, "winner": "England", "aet": true},
+    {"match": 100, "stage": "Quarter-final", "home": "Argentina", "away": "Switzerland",  "homeGoals": 3, "awayGoals": 1, "winner": "Argentina", "aet": true}
   ]
 }
