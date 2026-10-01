@@ -7,6 +7,14 @@ services:
     container_name: wc2026-web
     restart: unless-stopped
     mem_limit: 256m
+    # Hardened after the Sep 2026 compromise
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 100
+    tmpfs:
+      - /tmp:size=64m,noexec,nosuid,nodev
     expose:
       - "3000"
     networks:
