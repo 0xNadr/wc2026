@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteNav } from "@/components/site-nav";
 import "./globals.css";
@@ -50,11 +49,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SiteNav />
         <main className="flex-1 mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8 w-full">{children}</main>
-        <Script
-          src="https://analytics.nader.info/count.js"
-          strategy="afterInteractive"
-          data-goatcounter="https://analytics.nader.info/count"
-        />
       </body>
     </html>
   );
